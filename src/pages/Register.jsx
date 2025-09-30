@@ -1,11 +1,14 @@
 import { useForm } from "react-hook-form"
 import { InputField } from "../components/InputField"
+import { useNavigate } from "react-router-dom";
 
 export const Register = () => {
   const { register, formState: { errors }, handleSubmit } = useForm();
+  const navigate = useNavigate();
 
   function onSubmit(data) {
     console.log(data);
+    navigate("/");
   }
 
   return (
