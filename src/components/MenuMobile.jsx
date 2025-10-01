@@ -24,7 +24,6 @@ export const MenuMobile = () => {
       >
         <Link onClick={() => setIsOpen(false)} to="/" className="link-nav font-semibold">Home</Link>
         <Link onClick={() => setIsOpen(false)} to="/about" className="link-nav font-semibold">Sobre</Link>
-        <Link onClick={() => setIsOpen(false)} to="/pets" className="link-nav font-semibold">Pets</Link>
         <Link onClick={() => setIsOpen(false)} to="/register" className="link-nav font-semibold">Cadastro</Link>
       </nav>
     </div>
