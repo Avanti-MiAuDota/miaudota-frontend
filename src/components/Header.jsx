@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 
 export const Header = () => {
   return (
-    <header className="mb-2 flex justify-between items-center p-4 bg-light">
+    <header className="flex justify-between items-center p-4 bg-white shadow-md">
       <div className="w-[80px] sm:w-[120px]">
         <Link to="/">
           <img className="w-full" src={logo} alt="Logo da MiAuDota" />

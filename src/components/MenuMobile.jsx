@@ -17,7 +17,7 @@ export const MenuMobile = () => {
 
       <nav
         className={`
-          absolute top-[80px] right-0 w-full h-screen bg-light shadow-lg p-6 rounded-bl-md z-50 flex flex-col gap-4 text-dark
+          absolute top-[80px] right-0 w-full h-screen bg-white shadow-lg p-6 rounded-bl-md z-50 flex flex-col gap-4 text-dark
           transform transition-transform duration-300 ease-out
           ${isOpen ? 'translate-y-0 opacity-100' : '-translate-y-4 opacity-0 pointer-events-none'}
         `}
