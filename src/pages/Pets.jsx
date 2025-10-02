@@ -1,5 +1,10 @@
+import { Filter } from "../components/Filter";
+import { PetList } from "../components/PetList";
 export const Pets = () => {
   return (
-    <div>Pets</div>
+    <div>
+      <Filter />
+      <PetList />
+    </div>
   )
 }

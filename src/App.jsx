@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom"
+import { Navigate, Route, Routes } from "react-router-dom"
 import { Header } from "./components/Header"
 import { ScrollToTop } from "./components/ScrollToTop"
 import { About } from "./pages/About"
@@ -22,9 +22,9 @@ function App() {
     <div className="font-inter flex flex-col min-h-screen overflow-x-hidden">
       <ScrollToTop />
       <Header />
-      <main className="flex-grow">
+      <main className="flex-grow bg-light">
         <Routes>
-          <Route path="/" element={<Pets />} />
+          <Route path="/" element={<Navigate to="/pets" replace />} />
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
