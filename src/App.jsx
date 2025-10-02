@@ -19,10 +19,10 @@ import { Adoption } from "./pages/Adoption"
 function App() {
 
   return (
-    <div className="font-inter flex flex-col min-h-screen overflow-x-hidden">
+    <div className="font-inter flex flex-col min-h-screen overflow-x-hidden bg-light">
       <ScrollToTop />
       <Header />
-      <main className="flex-grow bg-light">
+      <main className="flex-grow max-w-[1200px] w-full mx-auto">
         <Routes>
           <Route path="/" element={<Navigate to="/pets" replace />} />
           <Route path="/about" element={<About />} />
