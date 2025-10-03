@@ -46,24 +46,78 @@ Instala todas as dependências do projeto.
 
 Roda o app em modo desenvolvimento. Abra [http://localhost:5173](http://localhost:5173) para ver no navegador.
 
+## Repositórios Relacionados
+
+- **Backend:** [miaudota-backend](https://github.com/Avanti-MiAuDota/miaudota-backend)
+- **Frontend:** [miaudota-frontend](https://github.com/Avanti-MiAuDota/miaudota-frontend) (este repositório)
 
 ## Como Rodar o Projeto
 
+### Pré-requisitos
+
+- Node.js 18+
+- NPM ou Yarn
+- Backend do MiAuDota rodando (veja instruções abaixo)
+
+### 1. Configurando o Backend
+
+Primeiro, clone e configure o backend:
+
+```sh
+git clone https://github.com/Avanti-MiAuDota/miaudota-backend.git
+cd miaudota-backend
+```
+
+Siga as instruções do README do backend para:
+
+- Configurar o banco de dados
+- Instalar dependências
+- Configurar variáveis de ambiente
+
+Inicie o backend:
+
+```sh
+npm start
+```
+
+O backend deve estar rodando em `http://localhost:8080`
+
+### 2. Configurando o Frontend
+
 1. **Clone o repositório:**
+
    ```sh
    git clone https://github.com/Avanti-MiAuDota/miaudota-frontend.git
    cd miaudota-frontend
    ```
+
 2. **Instale as dependências:**
+
    ```sh
    npm install
    ```
-3. **Inicie o servidor de desenvolvimento:**
+
+3. **Configure as variáveis de ambiente:**
+
+   ```sh
+   cp .env.example .env
+   ```
+
+   Edite o arquivo `.env` conforme necessário:
+
+   ```properties
+   VITE_API_BASE_URL=http://localhost:8080/api
+   ```
+
+4. **Inicie o servidor de desenvolvimento:**
+
    ```sh
    npm run dev
    ```
-4. **Acesse no navegador:**
+
+5. **Acesse no navegador:**
    [http://localhost:5173](http://localhost:5173)
+
 
 ## Estrutura de Rotas
 
@@ -83,3 +137,11 @@ As principais rotas da aplicação são:
 - `/congratulations` — Tela de match
 - `/401` — Não autorizado
 - `*` — Página não encontrada
+
+## Equipe de Desenvolvimento
+
+- [André](https://github.com/Mordev-tech)
+- [Daniel](https://github.com/danielcooder)
+- [Danielle](https://github.com/daniellesena)
+- [Flávia](https://github.com/flaviare1s)
+- [Vittoria](https://github.com/Vittoriaalopes)
