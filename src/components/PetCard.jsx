@@ -2,6 +2,8 @@ import { Link } from "react-router-dom"
 import { useAuth } from "../contexts/AuthContext";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 import { IoDocumentTextOutline } from "react-icons/io5";
+import toast from "react-hot-toast";
+import { deletePet } from "../api/pet";
 
 export const PetCard = ({ pet }) => {
   const { user } = useAuth();
@@ -18,6 +20,20 @@ export const PetCard = ({ pet }) => {
   };
 
   const badgeClass = statusClasses[pet.status] || "bg-transparent";
+
+  const handleDelete = async (petId) => {
+    if (window.confirm("Tem certeza de que deseja deletar este pet?")) {
+      try {
+        await deletePet(petId);
+        toast.success("Pet deletado com sucesso!");
+        window.location.reload();
+      } catch (error) {
+        console.error("Erro ao deletar pet:", error);
+        toast.error("Erro ao deletar pet.");
+      }
+    }
+  };
+
   return (
     <div className="bg-white shadow rounded-md p-3 h-full flex flex-col">
       <Link to={`/pets/${pet.id}`} className="flex-1 flex flex-col">
@@ -56,7 +72,7 @@ export const PetCard = ({ pet }) => {
           >
             <FaRegEdit className="text-azul text-xl cursor-pointer hover:scale-110 transition-transform duration-200" />
           </Link>
-          <button>
+          <button onClick={() => handleDelete(pet.id)}>
             <FaRegTrashAlt className="text-laranja text-xl cursor-pointer hover:scale-110 transition-transform duration-200" />
           </button>
           <Link
