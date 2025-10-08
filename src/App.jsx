@@ -15,13 +15,26 @@ import { Pets } from "./pages/Pets"
 import { PetProfile } from "./pages/PetProfile"
 import { Footer } from "./components/Footer"
 import { Adoption } from "./pages/Adoption"
+import { useAuth } from "./contexts/AuthContext"
+import { useEffect, useState } from "react"
+import { CustomLoader } from "./components/CustomLoader"
 
 function App() {
+  const { user } = useAuth();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
+
+  if (isLoading) {
+    return <CustomLoader />;
+  }
 
   return (
-    <div className="font-inter flex flex-col min-h-screen overflow-x-hidden bg-light">
+    <div className="font-inter flex flex-col min-h-[calc(100vh-80px)] overflow-x-hidden bg-light">
       <ScrollToTop />
-      <Header />
+      <Header user={user} />
       <main className="flex-grow max-w-[1200px] w-full mx-auto">
         <Routes>
           <Route path="/" element={<Navigate to="/pets" replace />} />
