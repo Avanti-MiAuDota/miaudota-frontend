@@ -29,7 +29,6 @@ export const Header = () => {
               {user.role === "ADMIN" ? (
                 <div className="flex items-center gap-2">
                   <MdOutlineAdminPanelSettings className="text-verde-escuro text-xl sm:text-2xl" />
-                  <span className="text-verde-escuro font-medium hidden sm:inline">Admin</span>
                 </div>
               ) : (
                 <p className="text-verde-escuro font-medium">
@@ -53,14 +52,13 @@ export const Header = () => {
             </button>
           ) : (
             <Link
-              className="bg-laranja py-2 px-3text-light font-bold uppercase rounded-md hover:bg-azul focus:outline-none focus:ring-2 focus:ring-light focus:ring-opacity-75 transition-transform hover:scale-105"
+                className="bg-laranja py-2 px-3 text-light font-bold uppercase rounded-md hover:bg-azul focus:outline-none focus:ring-2 focus:ring-light focus:ring-opacity-75 transition-transform hover:scale-105"
               to="/login"
             >
               Entrar
             </Link>
           )}
 
-          {/* Menu mobile - sempre por último */}
           <div className="sm:hidden">
             <MenuMobile />
           </div>
