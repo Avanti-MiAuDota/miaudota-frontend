@@ -33,7 +33,7 @@ function App() {
   }
 
   return (
-    <div className="font-inter flex flex-col min-h-[calc(100vh-80px)] overflow-x-hidden bg-light">
+    <div className="font-inter flex flex-col min-h-screen overflow-x-hidden bg-light">
       <ScrollToTop />
       <Header user={user} />
       <main className="flex-grow max-w-[1200px] w-full mx-auto">
