@@ -1,13 +1,7 @@
-import React from 'react';
 import imgUnauthorized from "../assets/img/cao_unauthorized.png";
-import { useNavigate } from 'react-router-dom';
-
 
 export const Unauthorized = () => {
-  const navigate = useNavigate();
-  const GoLogin = () => {
-  window.location.href = '/login'; 
-};
+ 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center p-4 font-sans text-gray-700">
 
@@ -24,8 +18,8 @@ export const Unauthorized = () => {
 
       <div className="flex flex-col items-center gap-4"> 
         <button
-          onClick={GoLogin}
-          className="transform rounded-lg bg-laranja px-6 py-3 font-bold text-white shadow-md transition-transform hover:scale-105 hover:bg-azul focus:outline-none focus:ring-2 focus:ring-light focus:ring-opacity-75" 
+          onClick={() => window.location.href = '/login'}
+          className="transform rounded-lg bg-laranja px-6 py-3 font-bold text-white shadow-md transition-transform hover:scale-105 hover:bg-azul focus:outline-none focus:ring-2 focus:ring-light focus:ring-opacity-75 cursor-pointer" 
         >
           Tentar login novamente
         </button>
