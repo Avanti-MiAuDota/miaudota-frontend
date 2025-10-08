@@ -3,17 +3,29 @@ import { InputField } from "../components/InputField";
 import { SubmitButton } from "../components/SubmitButton";
 import { z } from "zod";
 import { createUsuario } from "../api/usuario.js";
+import { loginUser } from "../api/auth.js";
+import { useAuth } from "../contexts/AuthContext";
 import toast, { Toaster } from "react-hot-toast";
 
 
 
 const registerSchema = z.object({
-  nomeCompleto: z.string().min(3, "O nome deve ter pelo menos 3 caracteres").nonempty("O nome é obrigatório"),
-  email: z.string().nonempty("O e-mail é obrigatório"),
-  senha: z.string().nonempty("A senha é obrigatória"),
+  nomeCompleto: z
+    .string()
+    .min(1, "O nome é obrigatório")
+    .min(3, "O nome deve ter pelo menos 3 caracteres"),
+  email: z
+    .string()
+    .min(1, "O e-mail é obrigatório")
+    .email("Formato de e-mail inválido"),
+  senha: z
+    .string()
+    .min(1, "A senha é obrigatória")
+    .min(6, "A senha deve ter pelo menos 6 caracteres"),
 });
 
 export function Register() {
+  const { login } = useAuth();
   const [formData, setFormData] = useState({
     nomeCompleto: "",
     email: "",
@@ -70,11 +82,23 @@ export function Register() {
     }
 
     try {
-     
-      const response = await createUsuario(result.data);
-      console.log("Usuário criado:", response);
 
-     toast.success("Cadastro realizado com sucesso!");
+      await createUsuario(result.data);
+
+      toast.success("Cadastro realizado com sucesso!");
+
+      try {
+        const loginData = {
+          email: result.data.email,
+          senha: result.data.senha,
+        };
+
+        const user = await loginUser(loginData);
+        login(user);
+      } catch (loginError) {
+        console.error("Erro no login automático:", loginError);
+        toast.error("Cadastro realizado! Faça login para continuar.");
+      }
 
       setFormData({
         nomeCompleto: "",
@@ -90,7 +114,7 @@ export function Register() {
       let msg = "";
 
       if (Array.isArray(errors)) {
-         msg = errors.join("\n");
+        msg = errors.join("\n");
       } else if (typeof errors === "string") {
         msg = errors;
       } else if (error.response?.data?.error) {
@@ -105,7 +129,7 @@ export function Register() {
     }
 
   };
-  
+
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 px-4">
@@ -151,7 +175,7 @@ export function Register() {
 
         <SubmitButton text="Cadastrar" />
       </form>
-       <Toaster position="top-center" reverseOrder={false} />
+      <Toaster position="top-center" reverseOrder={false} />
 
     </div>
   );

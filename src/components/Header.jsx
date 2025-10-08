@@ -1,29 +1,68 @@
 import logo from "../assets/img/miaulogo.png";
+import { useAuth } from "../contexts/AuthContext";
 import { MenuDesktop } from "./MenuDesktop";
 import { MenuMobile } from "./MenuMobile";
 import { Link } from "react-router-dom";
+import { MdOutlineAdminPanelSettings, MdOutlineLogout } from "react-icons/md";
 
 export const Header = () => {
+  const { user, logout } = useAuth();
+
+  // Função para pegar apenas o primeiro nome
+  const getPrimeiroNome = (nomeCompleto) => {
+    if (!nomeCompleto) return null;
+    return nomeCompleto.split(' ')[0];
+  };
+
   return (
-    <header className="flex justify-between items-center p-4 bg-white shadow-md mb-4">
-      <div className="w-[80px] sm:w-[120px]">
-        <Link to="/">
-          <img className="w-full" src={logo} alt="Logo da MiAuDota" />
-        </Link>
-      </div>
-      <div className="flex flex-row-reverse gap-4 items-center sm:flex-row">
-        <div className="hidden sm:block">
-          <MenuDesktop />
+    <header className="bg-white shadow-md mb-4">
+      <div className="flex justify-between items-center p-4">
+        <div className="w-[80px] sm:w-[120px]">
+          <Link to="/">
+            <img className="w-full" src={logo} alt="Logo da MiAuDota" />
+          </Link>
         </div>
-        <div className="sm:hidden">
-          <MenuMobile />
+
+        <div className="flex gap-1 sm:gap-4 items-center">
+          {user && (
+            <div className="flex items-center gap-2">
+              {user.role === "ADMIN" ? (
+                <div className="flex items-center gap-2">
+                  <MdOutlineAdminPanelSettings className="text-verde-escuro text-xl sm:text-2xl" />
+                </div>
+              ) : (
+                <p className="text-verde-escuro font-medium">
+                  Olá, {getPrimeiroNome(user.nome || user.nomeCompleto)}!
+                </p>
+              )}
+            </div>
+          )}
+
+          <div className="hidden sm:block">
+            <MenuDesktop />
+          </div>
+
+          {user ? (
+            <button
+              className="bg-transparent sm:bg-laranja py-2 px-3 text-light font-bold uppercase rounded-md sm:hover:bg-azul focus:outline-none focus:ring-2 focus:ring-light focus:ring-opacity-75 transition-transform hover:scale-105 cursor-pointer flex items-center gap-2"
+              onClick={logout}
+            >
+              <p className="hidden sm:inline">Sair</p>
+              <MdOutlineLogout className="text-laranja sm:text-light text-xl hover:text-azul" />
+            </button>
+          ) : (
+            <Link
+                className="bg-laranja py-2 px-3 text-light font-bold uppercase rounded-md hover:bg-azul focus:outline-none focus:ring-2 focus:ring-light focus:ring-opacity-75 transition-transform hover:scale-105"
+              to="/login"
+            >
+              Entrar
+            </Link>
+          )}
+
+          <div className="sm:hidden">
+            <MenuMobile />
+          </div>
         </div>
-        <Link
-          className="bg-laranja py-2 px-3 text-light font-bold uppercase rounded-md hover:bg-azul focus:outline-none focus:ring-2 focus:ring-light focus:ring-opacity-75 transition-transform hover:scale-105"
-          to="/login"
-        >
-          Login
-        </Link>
       </div>
     </header>
   );
