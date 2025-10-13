@@ -2,17 +2,24 @@ import logo from "../assets/img/miaulogo.png";
 import { useAuth } from "../contexts/AuthContext";
 import { MenuDesktop } from "./MenuDesktop";
 import { MenuMobile } from "./MenuMobile";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { MdOutlineAdminPanelSettings, MdOutlineLogout } from "react-icons/md";
+
 
 export const Header = () => {
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
   // Função para pegar apenas o primeiro nome
   const getPrimeiroNome = (nomeCompleto) => {
     if (!nomeCompleto) return null;
     return nomeCompleto.split(' ')[0];
   };
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  }
 
   return (
     <header className="bg-white shadow-md mb-4">
@@ -23,7 +30,7 @@ export const Header = () => {
           </Link>
         </div>
 
-        <div className="flex gap-1 sm:gap-4 items-center">
+        <div className="flex gap-10 sm:gap-4 items-center">
           {user && (
             <div className="flex items-center gap-2">
               {user.role === "ADMIN" ? (
@@ -52,7 +59,7 @@ export const Header = () => {
             </button>
           ) : (
             <Link
-                className="bg-laranja py-2 px-3 text-light font-bold uppercase rounded-md hover:bg-azul focus:outline-none focus:ring-2 focus:ring-light focus:ring-opacity-75 transition-transform hover:scale-105"
+                className="bg-laranja py-2 px-3 text-light font-bold uppercase rounded-md hover:bg-azul focus:outline-none focus:ring-2 focus:ring-light focus:ring-opacity-75 transition-transform hover:scale-105  "
               to="/login"
             >
               Entrar

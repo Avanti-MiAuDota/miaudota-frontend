@@ -93,9 +93,14 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     navigate('/login');
   };
+   const logoutForbidden = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('usuario');
+    setUser(null);
+  };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, logoutForbidden }}>
       {children}
     </AuthContext.Provider>
   );
