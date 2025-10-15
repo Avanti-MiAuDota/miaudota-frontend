@@ -40,7 +40,7 @@ export const Header = () => {
                   <MdOutlineAdminPanelSettings className="text-verde-escuro text-xl sm:text-2xl" />
                 </div>
               ) : (
-                <p className="text-verde-escuro text-sm font-medium mr-[-12px]">
+                <p className="text-verde-escuro text-sm font-medium mr-[-12px] sm:mr-0">
                   Olá, {getPrimeiroNome(user.nome || user.nomeCompleto)}!
                 </p>
               )}
