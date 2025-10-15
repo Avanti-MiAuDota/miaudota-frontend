@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { HiMenu, HiX } from 'react-icons/hi';
+import { ReturnButton } from './ReturnButton';
 
 export const MenuMobile = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,7 +10,7 @@ export const MenuMobile = () => {
     <div className="md:hidden">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="text-azul focus:outline-none cursor-pointer"
+        className="text-azul focus:outline-none cursor-pointer mt-1"
         aria-label="Abrir menu"
       >
         {isOpen ? <HiX size={34} /> : <HiMenu size={34} />}
@@ -26,6 +27,8 @@ export const MenuMobile = () => {
         <Link onClick={() => setIsOpen(false)} to="/about" className="link-nav font-semibold">Sobre</Link>
         <Link onClick={() => setIsOpen(false)} to="/register" className="link-nav font-semibold">Cadastro</Link>
       </nav>
+      
     </div>
+    
   );
 };

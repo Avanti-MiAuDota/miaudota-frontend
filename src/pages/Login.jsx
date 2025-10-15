@@ -6,6 +6,7 @@ import { loginUser } from "../api/auth";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { ReturnButton } from "../components/ReturnButton";
 
 const loginSchema = z.object({
   email: z
@@ -46,7 +47,10 @@ export function Login() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-[calc(100vh-100px)] bg-gray-100 px-4">
+    <div className="relative flex justify-center items-center min-h-[calc(100vh-100px)] bg-gray-100 px-4">
+      <div className="absolute top-6 left-6">
+        <ReturnButton />
+      </div>
       <form
         noValidate
         onSubmit={handleSubmit(onSubmit)}

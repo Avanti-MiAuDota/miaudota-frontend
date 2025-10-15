@@ -4,8 +4,7 @@ import { ScrollToTop } from "./components/ScrollToTop"
 import { About } from "./pages/About"
 import { Login } from "./pages/Login"
 import { Register } from "./pages/Register"
-import { PetRegister } from "./pages/PetRegister"
-import { PetEdit } from "./pages/PetEdit"
+import { PetForm } from "./pages/PetForm"
 import { Adoptions } from "./pages/Adoptions"
 import { FormAdoption } from "./pages/FormAdoption"
 import { Match } from "./pages/Match"
@@ -19,6 +18,7 @@ import { useAuth } from "./contexts/AuthContext"
 import { useEffect, useState } from "react"
 import { CustomLoader } from "./components/CustomLoader"
 import { PrivateRoute } from "./components/PrivateRoute"
+
 
 function App() {
   const { user } = useAuth();
@@ -42,10 +42,10 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/pets/add" element={<PrivateRoute><PetForm /></PrivateRoute>} />
+          <Route path="/pets/edit/:id" element={<PrivateRoute><PetForm /></PrivateRoute>} />
           <Route path="/pets" element={<Pets />} />
           <Route path="/pets/:id" element={<PetProfile />} />
-          <Route path="/pets/add" element={<PrivateRoute><PetRegister /></PrivateRoute>} />
-          <Route path="/pets/edit/:id" element={<PrivateRoute><PetEdit /></PrivateRoute>} />
           <Route path="/pets/:petId/adoptions" element={<Adoptions />} />
           <Route path="/adoptions/:adoptionId" element={<Adoption />} />
           <Route path="/pets/adopt/:petId" element={<FormAdoption />} />
