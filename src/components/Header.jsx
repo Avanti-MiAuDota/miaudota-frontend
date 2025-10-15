@@ -31,7 +31,7 @@ export const Header = () => {
         </div>
 
         <div className={`flex items-center ${
-            !user ? "gap-10 sm:gap-4" : "gap-10"
+            !user ? "gap-10 sm:gap-4" : "gap-5"
           }`}>
           {user && (
             <div className="flex items-center gap-2">
@@ -40,7 +40,7 @@ export const Header = () => {
                   <MdOutlineAdminPanelSettings className="text-verde-escuro text-xl sm:text-2xl" />
                 </div>
               ) : (
-                <p className="text-verde-escuro font-medium">
+                <p className="text-verde-escuro text-sm font-medium mr-[-12px]">
                   Olá, {getPrimeiroNome(user.nome || user.nomeCompleto)}!
                 </p>
               )}
@@ -54,7 +54,7 @@ export const Header = () => {
           {user ? (
             <button
               className="bg-transparent sm:bg-laranja py-2 px-3 text-light font-bold uppercase rounded-md sm:hover:bg-azul focus:outline-none focus:ring-2 focus:ring-light focus:ring-opacity-75 transition-transform hover:scale-105 cursor-pointer flex items-center gap-2"
-              onClick={logout}
+              onClick={handleLogout}
             >
               <p className="hidden sm:inline">Sair</p>
               <MdOutlineLogout className="text-laranja sm:text-light text-xl hover:text-azul" />

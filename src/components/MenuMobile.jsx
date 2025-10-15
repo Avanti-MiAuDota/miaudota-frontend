@@ -10,7 +10,7 @@ export const MenuMobile = () => {
     <div className="md:hidden">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="text-azul focus:outline-none cursor-pointer"
+        className="text-azul focus:outline-none cursor-pointer mt-1"
         aria-label="Abrir menu"
       >
         {isOpen ? <HiX size={34} /> : <HiMenu size={34} />}
