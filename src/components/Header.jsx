@@ -30,7 +30,9 @@ export const Header = () => {
           </Link>
         </div>
 
-        <div className="flex gap-10 sm:gap-4 items-center">
+        <div className={`flex items-center ${
+            !user ? "gap-10 sm:gap-4" : "gap-10"
+          }`}>
           {user && (
             <div className="flex items-center gap-2">
               {user.role === "ADMIN" ? (
