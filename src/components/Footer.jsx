@@ -2,9 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FaInstagram, FaFacebookF, FaTwitter } from "react-icons/fa";
 import logo from "../assets/img/miaulogo.png";
+import { useAuth } from "../contexts/AuthContext";
 
 export const Footer = () => {
   const year = new Date().getFullYear();
+  const { user } = useAuth();
 
   return (
     <footer className="bg-verde-escuro text-light py-6 shadow-inner mt-8">
@@ -20,7 +22,7 @@ export const Footer = () => {
         <nav aria-label="Navegação do rodapé" className="text-center">
           <ul className="flex flex-col sm:flex-row gap-2 sm:gap-6 items-center text-sm uppercase font-medium">
             <li>
-              <Link to="/sobre" className="link-nav hover:text-laranja">
+              <Link to="/about" className="link-nav hover:text-laranja">
                 Sobre
               </Link>
             </li>
@@ -29,12 +31,13 @@ export const Footer = () => {
                 Pets
               </Link>
             </li>
-            <li>
-              <Link to="/contato" className="link-nav hover:text-laranja">
-                Contato
-              </Link>
-            </li>
-           
+            {!user && (
+              <li>
+                <Link to="/register" className="link-nav hover:text-laranja">
+                  Cadastro
+                </Link>
+              </li>
+            )}
           </ul>
         </nav>
 
