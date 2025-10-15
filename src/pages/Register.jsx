@@ -6,6 +6,7 @@ import { createUsuario } from "../api/usuario.js";
 import { loginUser } from "../api/auth.js";
 import { useAuth } from "../contexts/AuthContext";
 import toast, { Toaster } from "react-hot-toast";
+import { ReturnButton } from "../components/ReturnButton";
 
 
 
@@ -132,7 +133,11 @@ export function Register() {
 
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100 px-4">
+    <div className="relative flex justify-center items-center min-h-screen bg-gray-100 px-4">
+      <div className="absolute top-6 left-6"> 
+      <ReturnButton />
+      </div>
+
       <form
         noValidate
         onSubmit={handleSubmit}
