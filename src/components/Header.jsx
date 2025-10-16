@@ -3,7 +3,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { MenuDesktop } from "./MenuDesktop";
 import { MenuMobile } from "./MenuMobile";
 import { useNavigate, Link } from "react-router-dom";
-import { MdOutlineAdminPanelSettings, MdOutlineLogout } from "react-icons/md";
+import { MdOutlineAdminPanelSettings, MdOutlineLogout, MdPersonOutline, MdOutlineSettings } from "react-icons/md";
 
 
 export const Header = () => {
@@ -45,6 +45,28 @@ export const Header = () => {
                 </p>
               )}
             </div>
+          )}
+
+          {user && (
+            <>
+              {user.role === "ADMIN" ? (
+                <Link
+                  to={`/profile/${user.id}`}
+                  className="flex items-center cursor-pointer text-verde-escuro hover:text-verde-claro"
+                  title="Painel do Admin"
+                >
+                  <MdOutlineSettings className="text-2xl sm:text-xl" />
+                </Link>
+              ) : (
+                <Link
+                  to={`/profile/${user.id}`}
+                  className="flex items-center cursor-pointer text-verde-escuro hover:text-verde-claro"
+                  title="Meu perfil"
+                >
+                  <MdPersonOutline className="text-2xl sm:text-xl" />
+                </Link>
+              )}
+            </>
           )}
 
           <div className="hidden sm:block">
