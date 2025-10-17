@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { ReturnButton } from "../components/ReturnButton";
+import { Link } from "react-router-dom";
 
 const loginSchema = z.object({
   email: z
@@ -51,37 +52,40 @@ export function Login() {
       <div className="absolute top-6 left-6">
         <ReturnButton />
       </div>
-      <form
-        noValidate
-        onSubmit={handleSubmit(onSubmit)}
-        className="bg-white p-6 sm:p-8 rounded-2xl shadow-md w-full max-w-md"
-      >
-        <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">
-          Login
-        </h1>
-
-        <InputField
-          label="E-mail"
-          type="email"
-          name="email"
-          register={register}
-          error={errors.email?.message}
-          placeholder="Digite seu e-mail"
-        />
-
-        <InputField
-          label="Senha"
-          type="password"
-          name="senha"
-          register={register}
-          error={errors.senha?.message}
-          placeholder="Digite sua senha"
-        />
-
-        <SubmitButton
-          text="Entrar"
-        />
-      </form>
+      <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-md w-full max-w-md">
+        <form
+          noValidate
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">
+            Login
+          </h1>
+          <InputField
+            label="E-mail"
+            type="email"
+            name="email"
+            register={register}
+            error={errors.email?.message}
+            placeholder="Digite seu e-mail"
+          />
+          <InputField
+            label="Senha"
+            type="password"
+            name="senha"
+            register={register}
+            error={errors.senha?.message}
+            placeholder="Digite sua senha"
+          />
+          <SubmitButton
+            text="Entrar"
+          />
+        </form>
+        <Link to="/register">
+          <p className="mt-4 text-center text-cinza text-xs">
+            Não possui uma conta? Cadastre-se!
+          </p>
+        </Link>
+      </div>
     </div>
   );
 }

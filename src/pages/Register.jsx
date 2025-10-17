@@ -7,6 +7,7 @@ import { loginUser } from "../api/auth.js";
 import { useAuth } from "../contexts/AuthContext";
 import toast, { Toaster } from "react-hot-toast";
 import { ReturnButton } from "../components/ReturnButton";
+import { Link } from "react-router-dom";
 
 
 
@@ -138,49 +139,50 @@ export function Register() {
       <ReturnButton />
       </div>
 
-      <form
-        noValidate
-        onSubmit={handleSubmit}
-        className="bg-white p-6 sm:p-8 rounded-2xl shadow-md w-full max-w-md"
-      >
-        <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">
-          Cadastro de Usuário
-        </h1>
-
-        <InputField
-          label="Nome Completo"
-          name="nomeCompleto"
-          value={formData.nomeCompleto}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={errors.nomeCompleto}
-        />
-
-        <InputField
-          label="E-mail"
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={errors.email}
-        />
-
-        <InputField
-          label="Senha"
-          type="password"
-          name="senha"
-          value={formData.senha}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={errors.senha}
-        />
-
-        <input type="hidden" name="role" value={formData.role} />
-
-        <SubmitButton text="Cadastrar" />
-      </form>
-      <Toaster position="top-center" reverseOrder={false} />
+      <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-md w-full max-w-md">
+        <form
+          noValidate
+          onSubmit={handleSubmit}
+        >
+          <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">
+            Cadastro de Usuário
+          </h1>
+          <InputField
+            label="Nome Completo"
+            name="nomeCompleto"
+            value={formData.nomeCompleto}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={errors.nomeCompleto}
+          />
+          <InputField
+            label="E-mail"
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={errors.email}
+          />
+          <InputField
+            label="Senha"
+            type="password"
+            name="senha"
+            value={formData.senha}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={errors.senha}
+          />
+          <input type="hidden" name="role" value={formData.role} />
+          <SubmitButton text="Cadastrar" />
+        </form>
+        <Toaster position="top-center" reverseOrder={false} />
+        <Link to="/login">
+          <p className="mt-4 text-center text-cinza text-xs">
+            Já possui uma conta? Faça login!
+          </p>
+        </Link>
+      </div>
 
     </div>
   );
