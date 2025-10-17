@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { ReturnButton } from "../components/ReturnButton";
 import toast from "react-hot-toast";
 import { CustomLoader } from "../components/CustomLoader";
 import { NotFound } from "./NotFound";
+import { getPet } from "../api/pet";
 import "../index.css";
 
 // --- Funções Auxiliares ---
@@ -143,14 +144,9 @@ export const PetProfile = () => {
       try {
         // Garante que o loader fique visível por pelo menos 1 segundo
         const delay = new Promise((resolve) => setTimeout(resolve, 1000));
-        const fetchPromise = fetch(`/api/pets/${id}`, { signal: ac.signal });
-        
-        const [res] = await Promise.all([fetchPromise, delay]);
+        const fetchPromise = getPet(id);
 
-        if (!res.ok) {
-          throw new Error(`HTTP ${res.status}`);
-        }
-        const data = await res.json();
+        const [data] = await Promise.all([fetchPromise, delay]);
         setPet(data);
       } catch (err) {
         if (err.name !== "AbortError") {
@@ -197,12 +193,12 @@ export const PetProfile = () => {
   if (redirecting) {
     return <CustomLoader />;
   }
-  
+
   // Renderiza o loader principal enquanto os dados são buscados
   if (loading) {
     return <CustomLoader />;
   }
-  
+
   // Se houver erro ou o pet não for encontrado, mostra o loader por 4s e depois a página NotFound
   if (error || !pet) {
     return <DelayedNotFoundView />;
@@ -313,4 +309,3 @@ export const PetProfile = () => {
     </div>
   );
 };
-
