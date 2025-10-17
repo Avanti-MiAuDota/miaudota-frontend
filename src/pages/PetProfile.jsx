@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { ReturnButton } from "../components/ReturnButton";
 import toast from "react-hot-toast";
 import { CustomLoader } from "../components/CustomLoader";
 import { NotFound } from "./NotFound";
-import { getPet } from "../api/pet";
+import {getPet } from "../api/pet";
 import "../index.css";
 
 // --- Funções Auxiliares ---
