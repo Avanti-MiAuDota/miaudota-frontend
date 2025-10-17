@@ -4,6 +4,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { getAllUsuarios, getUsuarioById, updateUsuario, deleteUsuario } from "../api/usuario";
 import { getPet } from "../api/pet";
 import toast, { Toaster } from "react-hot-toast";
+import { CustomLoader } from "../components/CustomLoader";
 
 export const UserProfile = () => {
     const { id } = useParams();
@@ -105,7 +106,7 @@ export const UserProfile = () => {
         }
     };
 
-    if (loading) return <div className="text-center p-8 text-gray-600"><p>Carregando perfil... ⏳</p></div>;
+    if (loading) return <div className="text-center p-8 text-gray-600"><CustomLoader /></div>;
     if (!usuario) return <div className="text-center p-8 text-red-500"><p>Usuário não encontrado 😢</p></div>;
 
     return (
