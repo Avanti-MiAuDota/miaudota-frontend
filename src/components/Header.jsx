@@ -5,7 +5,6 @@ import { MenuMobile } from "./MenuMobile";
 import { useNavigate, Link } from "react-router-dom";
 import { MdOutlineAdminPanelSettings, MdOutlineLogout } from "react-icons/md";
 
-
 export const Header = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -47,8 +46,9 @@ export const Header = () => {
             </div>
           )}
 
+          {/* Passe a prop user para MenuDesktop */}
           <div className="hidden sm:block">
-            <MenuDesktop />
+            <MenuDesktop user={user} />
           </div>
 
           {user ? (
@@ -68,8 +68,9 @@ export const Header = () => {
             </Link>
           )}
 
+         
           <div className="sm:hidden">
-            <MenuMobile />
+            <MenuMobile user={user} />
           </div>
         </div>
       </div>
