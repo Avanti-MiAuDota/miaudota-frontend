@@ -3,7 +3,8 @@ import { useAuth } from "../contexts/AuthContext";
 import { MenuDesktop } from "./MenuDesktop";
 import { MenuMobile } from "./MenuMobile";
 import { useNavigate, Link } from "react-router-dom";
-import { MdOutlineAdminPanelSettings, MdOutlineLogout, MdPersonOutline, MdOutlineSettings } from "react-icons/md";
+import { MdOutlineAdminPanelSettings, MdOutlineLogout } from "react-icons/md";
+import { MdOutlineSettings, MdPersonOutline } from "react-icons/md";
 
 
 export const Header = () => {
@@ -69,8 +70,9 @@ export const Header = () => {
             </>
           )}
 
+          {/* Passe a prop user para MenuDesktop */}
           <div className="hidden sm:block">
-            <MenuDesktop />
+            <MenuDesktop user={user} />
           </div>
 
           {user ? (
@@ -90,8 +92,9 @@ export const Header = () => {
             </Link>
           )}
 
+         
           <div className="sm:hidden">
-            <MenuMobile />
+            <MenuMobile user={user} />
           </div>
         </div>
       </div>
