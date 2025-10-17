@@ -31,11 +31,15 @@ export const Footer = () => {
                 Pets
               </Link>
             </li>
-            {!user && (
+            {!user ? (
               <li>
                 <Link to="/register" className="link-nav hover:text-laranja">
                   Cadastro
                 </Link>
+              </li>
+            ) : (
+              <li>
+                <Link to={`/profile/${user.id}`} className="link-nav hover:text-laranja">Perfil</Link>
               </li>
             )}
           </ul>
