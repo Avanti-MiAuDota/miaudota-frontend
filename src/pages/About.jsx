@@ -3,22 +3,26 @@ import { Link } from 'react-router-dom';
 import { FaPaw, FaHandsHelping, FaShieldAlt, FaUsers, FaEnvelope } from 'react-icons/fa';
 import miaulogo from '../assets/img/miaulogo2.png';
 import { Contact } from '../components/Contact';
+import { ReturnButton } from '../components/ReturnButton';
 
 export const About = () => {
   return (
-    // src/pages/About.jsx
-    <div className="min-h-screen" style={{ backgroundColor: 'var(--color-light)', color: 'var(--color-dark)' }}>
-      <main className="container mx-auto px-6 py-12 max-w-6xl">
-        
-        <section className="mb-10 fade-in">
+    <div className="relative min-h-[calc(100vh-100px)] bg-gray-100 px-4 py-12">
+      <div className="absolute top-6 left-6">
+        <ReturnButton />
+      </div>
+
+      <main className="container mx-auto px-6 max-w-6xl">
+        <section className="mb-10 fade-in text-center">
           <div className="mb-4">
             <img src={miaulogo} alt="Logo MiAuDota" className="mx-auto" style={{ maxWidth: '320px', width: '60%', height: 'auto' }} />
           </div>
+          
           <h1 className="sr-only">Sobre a MiAuDota</h1>
-          <p className="text-base sm:text-lg leading-relaxed max-w-3xl mx-auto text-center mb-4" style={{ color: 'var(--color-cinza-claro)' }}>
+          <p className="text-base sm:text-lg leading-relaxed max-w-3xl mx-auto mb-4" style={{ color: 'var(--color-cinza-claro)' }}>
             Bem-vindo à MiAuDota — um abrigo que transforma vidas. Cuidamos, reabilitamos e conectamos pets a famílias por meio de um processo claro, humano e seguro.
           </p>
-          <p className="text-sm sm:text-base max-w-2xl mx-auto text-center" style={{ color: 'var(--color-cinza-claro)' }}>
+          <p className="text-sm sm:text-base max-w-2xl mx-auto" style={{ color: 'var(--color-cinza-claro)' }}>
             Navegue pelo nosso catálogo, envie sua proposta e acompanhe cada etapa da adoção. Oferecemos suporte pré e pós-adoção para garantir uma transição tranquila.
           </p>
 
@@ -119,11 +123,6 @@ export const About = () => {
         </section>
         <Contact/>
       </main>
-
-
     </div>
   );
 }
-
-
-
