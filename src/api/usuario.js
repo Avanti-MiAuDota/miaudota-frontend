@@ -1,5 +1,15 @@
 import api from "../services/api.js";
 
+export const getAllUsuarios = async (token) => {
+  const { data } = await api.get("/usuarios", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return data;
+};
+
+
 export const createUsuario = async (usuarioData) => {
   const { data } = await api.post("/usuarios/", usuarioData);
   return data;
