@@ -18,6 +18,7 @@ import { useAuth } from "./contexts/AuthContext"
 import { useEffect, useState } from "react"
 import { CustomLoader } from "./components/CustomLoader"
 import { PrivateRoute } from "./components/PrivateRoute"
+import { UserProfile } from "./pages/UserProfile"
 
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
           <Route path="/congratulations" element={<Match />} />
           <Route path="/forbidden" element={<Unauthorized />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/profile/:id" element={<UserProfile />} />
         </Routes>
       </main>
       <Footer />
