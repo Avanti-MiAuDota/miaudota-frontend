@@ -14,7 +14,7 @@ export const addPet = async (formData) => {
   const token = localStorage.getItem("token");
   const response = await api.post("/pets", formData, {
     headers: {
-      "Content-Type": "multipart/form-data",
+      //"Content-Type": "multipart/form-data",
       Authorization: `Bearer ${token}`,
     },
   });
@@ -24,9 +24,10 @@ export const addPet = async (formData) => {
 
 export const updatePet = async (id, pet) => {
   const token = localStorage.getItem("token");
+  console.log("Token enviado no updatePet:", token);
   await api.put(`/pets/${id}`, pet, {
     headers: {
-      "Content-Type": "multipart/form-data",
+      //"Content-Type": "multipart/form-data",
       Authorization: `Bearer ${token}`,
     },
   });
