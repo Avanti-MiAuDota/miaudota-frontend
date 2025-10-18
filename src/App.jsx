@@ -1,25 +1,25 @@
-import { Navigate, Route, Routes } from "react-router-dom"
-import { Header } from "./components/Header"
-import { ScrollToTop } from "./components/ScrollToTop"
-import { About } from "./pages/About"
-import { Login } from "./pages/Login"
-import { Register } from "./pages/Register"
-import { PetForm } from "./pages/PetForm"
-import { Adoptions } from "./pages/Adoptions"
-import { FormAdoption } from "./pages/FormAdoption"
-import { Match } from "./pages/Match"
-import { Unauthorized } from "./pages/Unauthorized"
-import { NotFound } from "./pages/NotFound"
-import { Pets } from "./pages/Pets"
-import { PetProfile } from "./pages/PetProfile"
-import { Footer } from "./components/Footer"
-import { Adoption } from "./pages/Adoption"
-import { useAuth } from "./contexts/AuthContext"
-import { useEffect, useState } from "react"
-import { CustomLoader } from "./components/CustomLoader"
-import { PrivateRoute } from "./components/PrivateRoute"
-import { UserProfile } from "./pages/UserProfile"
-
+import { Navigate, Route, Routes } from "react-router-dom";
+import { Toaster } from 'react-hot-toast'; // Importação adicionada
+import { Header } from "./components/Header";
+import { ScrollToTop } from "./components/ScrollToTop";
+import { About } from "./pages/About";
+import { Login } from "./pages/Login";
+import { Register } from "./pages/Register";
+import { PetForm } from "./pages/PetForm";
+import { Adoptions } from "./pages/Adoptions";
+import { FormAdoption } from "./pages/FormAdoption";
+import { Match } from "./pages/Match";
+import { Unauthorized } from "./pages/Unauthorized";
+import { NotFound } from "./pages/NotFound";
+import { Pets } from "./pages/Pets";
+import { PetProfile } from "./pages/PetProfile";
+import { Footer } from "./components/Footer";
+import { Adoption } from "./pages/Adoption";
+import { useAuth } from "./contexts/AuthContext";
+import { useEffect, useState } from "react";
+import { CustomLoader } from "./components/CustomLoader";
+import { PrivateRoute } from "./components/PrivateRoute";
+import { UserProfile } from "./pages/UserProfile";
 
 function App() {
   const { user } = useAuth();
@@ -35,6 +35,8 @@ function App() {
 
   return (
     <div className="font-inter flex flex-col min-h-screen overflow-x-hidden bg-light">
+      <Toaster />
+      
       <ScrollToTop />
       <Header user={user} />
       <main className="flex-grow max-w-[1200px] w-full mx-auto">
@@ -61,4 +63,5 @@ function App() {
   )
 }
 
-export default App
+export default App;
+

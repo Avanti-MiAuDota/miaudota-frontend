@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { HiMenu, HiX } from 'react-icons/hi';
-import { ReturnButton } from './ReturnButton';
 
-export const MenuMobile = () => {
+export const MenuMobile = ({ user }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -25,10 +24,11 @@ export const MenuMobile = () => {
       >
         <Link onClick={() => setIsOpen(false)} to="/" className="link-nav font-semibold">Home</Link>
         <Link onClick={() => setIsOpen(false)} to="/about" className="link-nav font-semibold">Sobre</Link>
-        <Link onClick={() => setIsOpen(false)} to="/register" className="link-nav font-semibold">Cadastro</Link>
+       
+        {!user && (
+          <Link onClick={() => setIsOpen(false)} to="/register" className="link-nav font-semibold">Cadastro</Link>
+        )}
       </nav>
-      
     </div>
-    
   );
 };
