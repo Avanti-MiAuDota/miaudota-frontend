@@ -9,13 +9,21 @@ import { ReturnButton } from '../components/ReturnButton';
 import toast from 'react-hot-toast';
 import { getPet, addPet, updatePet } from '../api/pet';
 
-// ===== ALTERAÇÃO 1: MELHORANDO A VALIDAÇÃO DA IMAGEM =====
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB em bytes
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/jpg"];
 
 const petSchema = z.object({
   nome: z.string().min(1, 'Nome é obrigatório'),
-  dataNascimento: z.string().min(1, 'Data de nascimento é obrigatória'),
+  dataNascimento: z.string()
+    .min(1, 'Data de nascimento é obrigatória')
+    .refine((dateString) => {
+      const inputDate = new Date(dateString);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      return inputDate <= today;
+    }, {
+      message: "A data de nascimento não pode ser no futuro.",
+    }),
   especie: z.enum(['CAO', 'GATO'], {
     errorMap: () => ({ message: 'Espécie é obrigatória' })
   }),
@@ -26,15 +34,12 @@ const petSchema = z.object({
     errorMap: () => ({ message: 'Status é obrigatória' })
   }),
   descricao: z.string().min(1, 'Descrição é obrigatória'),
-  // Validação aprimorada para o campo da foto
   foto: z
     .instanceof(FileList)
     .optional()
     .refine(
       (files) => {
-        // Se não houver arquivo, a validação passa (campo opcional)
         if (!files || files.length === 0) return true;
-        // Valida o tamanho do primeiro arquivo
         return files[0].size <= MAX_FILE_SIZE;
       },
       `O tamanho máximo da imagem é 5MB.`
@@ -42,13 +47,11 @@ const petSchema = z.object({
     .refine(
       (files) => {
         if (!files || files.length === 0) return true;
-        // Valida o tipo do primeiro arquivo (JPG ou PNG)
         return ACCEPTED_IMAGE_TYPES.includes(files[0].type);
       },
       "Formato inválido. Use apenas JPG ou PNG."
     ),
 });
-// ==========================================================
 
 export const PetForm = () => {
   const { id } = useParams();
@@ -73,10 +76,8 @@ export const PetForm = () => {
   const fotoWatch = watch('foto');
 
   useEffect(() => {
-    // Limpa o preview se o arquivo selecionado for inválido
     if (errors.foto) {
       setPreviewImage(null);
-      // Opcional: remover o arquivo inválido do formulário (mais complexo, esta abordagem visual já ajuda)
     } else if (fotoWatch && fotoWatch.length > 0) {
       const file = fotoWatch[0];
       const reader = new FileReader();
@@ -143,21 +144,15 @@ export const PetForm = () => {
         navigate('/pets');
       }
     } catch (error) {
-      // ===== ALTERAÇÃO 2: MENSAGEM DE ERRO NO TOAST MAIS ESPECÍFICA =====
       console.error(`Erro ao ${isEdit ? 'atualizar' : 'cadastrar'} pet:`, error);
-      
-      // Tenta pegar uma mensagem específica da API, se houver
       const apiErrorMessage = error.response?.data?.message;
-      
       if (apiErrorMessage) {
         toast.error(apiErrorMessage);
       } else {
-        // Caso contrário, usa a sua sugestão como fallback
         toast.error(
           `Falha ao enviar. Verifique os dados ou se a imagem está em formato JPG ou PNG.`
         );
       }
-      // =================================================================
     } finally {
       setSubmitting(false);
     }
@@ -227,12 +222,11 @@ export const PetForm = () => {
                 <input
                   id="foto-upload"
                   type="file"
-                  accept="image/png, image/jpeg" // Ajuda o navegador a filtrar os arquivos
+                  accept="image/png, image/jpeg"
                   className="hidden"
                   {...register('foto')}
                 />
                 
-                {/* A mensagem de erro do Zod aparecerá aqui automaticamente */}
                 {errors.foto && (
                   <p className="mt-1 text-sm text-red-600">{errors.foto.message}</p>
                 )}
@@ -241,8 +235,6 @@ export const PetForm = () => {
                 </p>
               </div>
             </div>
-
-            {/* O resto do formulário continua igual */}
             
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Nome *</label>
