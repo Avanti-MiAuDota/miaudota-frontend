@@ -7,7 +7,7 @@ import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { PetForm } from "./pages/PetForm";
 import { Adoptions } from "./pages/Adoptions";
-import { FormAdoption } from "./pages/FormAdoption";
+import { AdoptionForm } from "./pages/AdoptionForm";
 import { Match } from "./pages/Match";
 import { Unauthorized } from "./pages/Unauthorized";
 import { NotFound } from "./pages/NotFound";
@@ -51,7 +51,8 @@ function App() {
           <Route path="/pets/:id" element={<PetProfile />} />
           <Route path="/pets/:petId/adoptions" element={<Adoptions />} />
           <Route path="/adoptions/:adoptionId" element={<Adoption />} />
-          <Route path="/pets/adopt/:petId" element={<FormAdoption />} />
+          <Route path="/pets/adopt/:petId" element={<AdoptionForm />} />
+          <Route path="/adoptions/edit/:adoptionId" element={<AdoptionForm />} />
           <Route path="/congratulations" element={<Match />} />
           <Route path="/forbidden" element={<Unauthorized />} />
           <Route path="*" element={<NotFound />} />
@@ -64,4 +65,3 @@ function App() {
 }
 
 export default App;
-
