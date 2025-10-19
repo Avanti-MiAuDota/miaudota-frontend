@@ -75,11 +75,12 @@ export const PetCard = ({ pet }) => {
           <button onClick={() => handleDelete(pet.id)}>
             <FaRegTrashAlt className="text-laranja text-xl cursor-pointer hover:scale-110 transition-transform duration-200" />
           </button>
+          {pet.status !== "DISPONIVEL" && 
           <Link
             to={`/pets/${pet.id}/adoptions`}
           >
             <IoDocumentTextOutline className="text-verde-escuro text-xl cursor-pointer hover:scale-110 transition-transform duration-200" />
-          </Link>
+          </Link>}
         </div>
       )}
 
