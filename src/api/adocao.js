@@ -13,7 +13,7 @@ export async function fetchPetById(petId) {
 export async function postAdoption(adoptionData) {
   const token = localStorage.getItem("token");
   try {
-    const response = await axios.post(`/adoptions`, adoptionData, {
+    const response = await axios.post(`/adocoes`, adoptionData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -28,7 +28,7 @@ export async function postAdoption(adoptionData) {
 export async function updateAdoption(adoptionId, adoptionData) {
   const token = localStorage.getItem("token");
   try {
-    const response = await axios.put(`/adoptions/${adoptionId}`, adoptionData, {
+    const response = await axios.put(`/adocoes/${adoptionId}`, adoptionData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -43,7 +43,7 @@ export async function updateAdoption(adoptionId, adoptionData) {
 export async function getAdoptions() {
   const token = localStorage.getItem("token");
   try {
-    const response = await axios.get(`/adoptions`, {
+    const response = await axios.get(`/adocoes`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return response.data;
@@ -56,7 +56,7 @@ export async function getAdoptions() {
 export async function getAdoptionById(adoptionId) {
   const token = localStorage.getItem("token");
   try {
-    const response = await axios.get(`/adoptions/${adoptionId}`, {
+    const response = await axios.get(`/adocoes/${adoptionId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return response.data;
@@ -82,7 +82,7 @@ export async function getAdoptionsByPetId(petId) {
 export async function deleteAdoption(adoptionId) {
   const token = localStorage.getItem("token");
   try {
-    await axios.delete(`/adoptions/${adoptionId}`, {
+    await axios.delete(`/adocoes/${adoptionId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
   } catch (error) {
