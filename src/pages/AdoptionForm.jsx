@@ -18,9 +18,7 @@ const addressSchema = z.object({
   complemento: z.string().optional(),
   bairro: z.string().min(1, 'O bairro é obrigatório.'),
   cidade: z.string().min(1, 'A cidade é obrigatória.'),
-  estado: z.string()
-    .length(2, 'O estado deve ter 2 caracteres.')
-    .transform(val => val.toUpperCase()),
+  estado: z.string().length(2, 'O estado deve ter 2 caracteres.').transform(val => val.toUpperCase()),
   telefone: z.string().min(1, 'O telefone é obrigatório.'),
 });
 
@@ -50,6 +48,31 @@ export const AdoptionForm = () => {
   });
 
   const aceitouTermo = watch('aceitouTermo') || false;
+  const cep = watch('endereco.cep');
+
+  useEffect(() => {
+    const fetchAddress = async () => {
+      const cleanCep = cep.replace(/\D/g, '');
+      if (cleanCep.length !== 8) return;
+
+      try {
+        const res = await fetch(`https://viacep.com.br/ws/${cleanCep}/json/`);
+        const data = await res.json();
+        if (!data.erro) {
+          setValue('endereco.logradouro', data.logradouro || '');
+          setValue('endereco.bairro', data.bairro || '');
+          setValue('endereco.cidade', data.localidade || '');
+          setValue('endereco.estado', data.uf || '');
+        } else {
+          toast.error('CEP não encontrado.');
+        }
+      } catch {
+        toast.error('Erro ao buscar CEP.');
+      }
+    };
+
+    if (cep) fetchAddress();
+  }, [cep, setValue]);
 
   useEffect(() => {
     if (isEdit) {
@@ -111,19 +134,16 @@ export const AdoptionForm = () => {
         dataAdocao: `${data.dataAdocao}T00:00:00.000Z`,
       };
 
-      console.log('Adoption payload:', payload);
-
       if (isEdit) {
         await updateAdoption(Number(petId), payload);
         toast.success('Adoção atualizada com sucesso!');
+        navigate('/');
       } else {
         await postAdoption(payload);
         toast.success('Solicitação de adoção enviada com sucesso!');
+        navigate('/congratulations');
       }
-
-      navigate('/adocoes');
     } catch (error) {
-      console.error('Erro ao enviar adoção:', error);
       const apiErrors = error.response?.data?.errors;
       const apiMessage = error.response?.data?.error;
 
@@ -177,7 +197,12 @@ export const AdoptionForm = () => {
             <div className="border-t border-gray-200 pt-4">
               <h2 className="text-lg font-semibold text-gray-800 mb-4">Endereço</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <InputField label="CEP *" name="endereco.cep" register={register} error={errors.endereco?.cep?.message} />
+                <InputField
+                  label="CEP *"
+                  name="endereco.cep"
+                  register={register}
+                  error={errors.endereco?.cep?.message}
+                />
                 <InputField label="Logradouro *" name="endereco.logradouro" register={register} error={errors.endereco?.logradouro?.message} />
                 <InputField label="Número *" name="endereco.numero" register={register} error={errors.endereco?.numero?.message} />
                 <InputField label="Complemento" name="endereco.complemento" register={register} />
