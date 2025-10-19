@@ -137,12 +137,12 @@ export const AdoptionForm = () => {
       if (isEdit) {
         await updateAdoption(Number(petId), payload);
         toast.success('Adoção atualizada com sucesso!');
+        navigate('/');
       } else {
         await postAdoption(payload);
         toast.success('Solicitação de adoção enviada com sucesso!');
+        navigate('/congratulations');
       }
-
-      navigate('/adocoes');
     } catch (error) {
       const apiErrors = error.response?.data?.errors;
       const apiMessage = error.response?.data?.error;
