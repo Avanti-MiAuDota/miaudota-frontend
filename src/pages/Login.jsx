@@ -17,7 +17,7 @@ const loginSchema = z.object({
   senha: z
     .string()
     .min(1, "A senha é obrigatória")
-    .min(6, "A senha deve ter pelo menos 6 caracteres"),
+    .min(8, "A senha deve ter pelo menos 8 caracteres"),
 });
 
 export function Login() {
