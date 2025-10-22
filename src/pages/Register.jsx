@@ -5,7 +5,7 @@ import { z } from "zod";
 import { createUsuario } from "../api/usuario.js";
 import { loginUser } from "../api/auth.js";
 import { useAuth } from "../contexts/AuthContext";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { ReturnButton } from "../components/ReturnButton";
 import { Link } from "react-router-dom";
 
@@ -176,7 +176,6 @@ export function Register() {
           <input type="hidden" name="role" value={formData.role} />
           <SubmitButton text="Cadastrar" />
         </form>
-        <Toaster position="top-center" reverseOrder={false} />
         <Link to="/login">
           <p className="mt-4 text-center text-cinza text-xs">
             Já possui uma conta? Faça login!

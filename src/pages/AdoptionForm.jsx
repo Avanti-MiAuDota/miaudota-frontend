@@ -161,6 +161,7 @@ export const AdoptionForm = () => {
       return;
     }
 
+    console.log('Iniciando submissão do formulário...');
     setSubmitting(true);
     try {
       const payload = {
@@ -181,17 +182,23 @@ export const AdoptionForm = () => {
         navigate('/congratulations', {state: { petId }});
       }
     } catch (error) {
+      console.error('Erro capturado no onSubmit:', error);
+
       const apiErrors = error.response?.data?.errors;
-      const apiMessage = error.response?.data?.error;
+      const apiMessage = error.response?.data?.message || error.response?.data?.error;
 
       if (Array.isArray(apiErrors)) {
-        apiErrors.forEach(errMsg => toast.error(errMsg));
+        apiErrors.forEach(errMsg => {
+          toast.error(errMsg);
+        });
       } else if (apiMessage) {
         toast.error(apiMessage);
       } else {
-        toast.error('Erro ao processar a solicitação.');
+        toast.error('Erro inesperado ao processar a solicitação.');
+        console.log('Toast de erro exibido para erro inesperado.');
       }
     } finally {
+      console.log('Finalizando submissão do formulário...');
       setSubmitting(false);
     }
   };

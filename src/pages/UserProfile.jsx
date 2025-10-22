@@ -8,12 +8,12 @@ import {
   deleteUsuario,
 } from "../api/usuario";
 import { getPet } from "../api/pet";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { CustomLoader } from "../components/CustomLoader";
 
 export const UserProfile = () => {
   const { id } = useParams();
-  const { token, user: authUser, logout } = useAuth();
+  const { token, user: authUser } = useAuth();
   const [usuario, setUsuario] = useState(null);
   const [todosUsuarios, setTodosUsuarios] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -33,19 +33,13 @@ export const UserProfile = () => {
 
         let adocoesComPet = [];
         if (authUser?.role !== "ADMIN") {
-          const statusMap = {
-            DISPONIVEL: "Disponível",
-            EM_ANALISE: "Em análise",
-            ADOTADO: "Adotado",
-          };
 
           adocoesComPet = await Promise.all(
             (data.adocoes || []).map(async (adocao) => {
               const pet = await getPet(adocao.petId);
               return {
                 ...adocao,
-                petNome: pet.nome,
-                petStatus: statusMap[pet.status] || pet.status,
+                petNome: pet.nome
               };
             })
           );
@@ -256,7 +250,7 @@ export const UserProfile = () => {
                               <span
                                 className={
                                   adocao.aceitouTermo
-                                    ? "text-green-600"
+                                    ? "text-verde-escuro"
                                     : "text-red-600"
                                 }
                               >
@@ -264,10 +258,9 @@ export const UserProfile = () => {
                               </span>
                             </li>
                             <li>
-                              <span className="font-medium">Pet:</span>{" "}
-                              {adocao.petNome} -{" "}
-                              <span className="text-blue-600">
-                                {adocao.petStatus}
+                              <span className="font-medium">Pet:</span><span className="font-semibold text-verde-escuro">
+                                {" "}
+                                {adocao.petNome}
                               </span>
                             </li>
                             <li>
@@ -282,6 +275,14 @@ export const UserProfile = () => {
                                 {adocao.motivo}
                               </p>
                             </li>
+                            <li>
+                              <span className="font-medium">Status da Adoção:</span>{" "}
+                              <span className="font-medium text-azul">{adocao.status}</span>
+                            </li>
+                            {adocao.status !== "APROVADA" &&
+                            <li>
+                             <small className="text-red-500">O abrigo entrará em contato com você em breve para finalizar o processo de adoção!</small>
+                            </li>}
                           </ul>
                         </div>
                       ))}
@@ -391,7 +392,6 @@ export const UserProfile = () => {
             )}
           </>
         )}
-        <Toaster position="top-center" reverseOrder={false} />
       </div>
       {/* Modal de confirmação de exclusão de usuário */}
       {showDeleteModal && (

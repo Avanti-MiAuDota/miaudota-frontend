@@ -61,7 +61,11 @@ export async function getAdoptionById(adoptionId) {
     });
     return response.data;
   } catch (error) {
-    console.error("Erro ao buscar adoção:", error);
+    console.error("Erro ao buscar adoção:", {
+      message: error.message,
+      response: error.response?.data,
+      status: error.response?.status,
+    });
     throw error;
   }
 }
@@ -87,6 +91,25 @@ export async function deleteAdoption(adoptionId) {
     });
   } catch (error) {
     console.error("Erro ao deletar adoção:", error);
+    throw error;
+  }
+}
+
+export async function patchAdoptionStatus(adoptionId, statusData) {
+  const token = localStorage.getItem("token");
+  try {
+    const response = await axios.patch(
+      `/adocoes/${adoptionId}/status`,
+      statusData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(`Erro ao atualizar status da adoção ${adoptionId}:`, error);
     throw error;
   }
 }
