@@ -37,21 +37,19 @@ const calcularIdade = (dataNascimento) => {
   }
 
   if (anos === 0) {
-    return `${meses} ${meses === 1 ? "mês" : "meses"}`;
+    return `${meses} ${meses === 1 ? 'mês' : 'meses'}`;
   } else if (anos === 1 && meses === 0) {
     return "1 ano";
   } else if (anos === 1 && meses > 0) {
-    return `1 ano e ${meses} ${meses === 1 ? "mês" : "meses"}`;
+    return `1 ano e ${meses} ${meses === 1 ? 'mês' : 'meses'}`;
   } else {
-    return `${anos} ${anos === 1 ? "ano" : "anos"}`;
+    return `${anos} ${anos === 1 ? 'ano' : 'anos'}`;
   }
 };
 
 // Funções para mapear códigos para labels (nomes amigáveis)
-const especieLabel = (s) =>
-  s === "CAO" ? "Cachorro" : s === "GATO" ? "Gato" : s;
-const sexoLabel = (s) =>
-  s === "MACHO" ? "Macho" : s === "FEMEA" ? "Fêmea" : s;
+const especieLabel = (s) => (s === "CAO" ? "Cachorro" : s === "GATO" ? "Gato" : s);
+const sexoLabel = (s) => (s === "MACHO" ? "Macho" : s === "FEMEA" ? "Fêmea" : s);
 const statusLabel = (s) => {
   switch (s) {
     case "DISPONIVEL":
@@ -174,12 +172,12 @@ export const PetProfile = () => {
         duration: 4000,
         position: "top-center",
         style: {
-          background: "var(--color-laranja)",
-          color: "white",
-          fontSize: "16px",
-          padding: "16px",
+          background: 'var(--color-laranja)',
+          color: 'white',
+          fontSize: '16px',
+          padding: '16px',
         },
-        icon: "🔒",
+        icon: '🔒',
       });
 
       // Ativa o loader e redireciona para o login após 2 segundos
@@ -187,25 +185,6 @@ export const PetProfile = () => {
       setTimeout(() => {
         navigate("/login");
       }, 2000); // Delay de 2 segundos
-      return;
-    }
-    if (pet.status === "EM_ANALISE" || pet.status === "ADOTADO") {
-      e.preventDefault();
-      toast(
-        `Pet não está disponível para adoção. Status atual: ${statusLabel(
-          pet.status
-        )}`,
-        {
-          duration: 4000,
-          position: "top-center",
-          style: {
-            background: "#266D99",
-            color: "white",
-            fontSize: "16px",
-            padding: "16px",
-          },
-        }
-      );
       return;
     }
   };
@@ -227,8 +206,7 @@ export const PetProfile = () => {
 
   // Define as constantes após garantir que `pet` existe
   const cores = temas_cor(pet.especie);
-  const fotoUrl =
-    pet.foto || "https://placehold.co/256x256/E2E8F0/718096?text=Pet";
+  const fotoUrl = pet.foto || "https://placehold.co/256x256/E2E8F0/718096?text=Pet";
   const mostrarBotaoAdotar = pet.status !== "ADOTADO" && user?.role !== "ADMIN";
 
   return (
@@ -261,10 +239,7 @@ export const PetProfile = () => {
                     >
                       {pet.nome}
                     </h1>
-                    <p
-                      className="text-sm mt-1"
-                      style={{ color: "var(--color-cinza-claro)" }}
-                    >
+                    <p className="text-sm mt-1" style={{ color: "var(--color-cinza-claro)" }}>
                       Cadastrado em {formato_data(pet.criadoEm)}
                     </p>
                   </div>
@@ -273,10 +248,8 @@ export const PetProfile = () => {
                       className="inline-block px-3 py-1 rounded-full text-sm font-medium"
                       style={{
                         background: status_cor(pet.status, cores),
-                        color:
-                          pet.status === "ADOTADO"
-                            ? "white"
-                            : "var(--color-dark)",
+                        color: pet.status === "ADOTADO" ? "white" : "var(--color-dark)",
+                        whiteSpace: "nowrap",
                       }}
                     >
                       {statusLabel(pet.status)}
@@ -286,63 +259,28 @@ export const PetProfile = () => {
 
                 <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <h3
-                      className="text-sm font-semibold"
-                      style={{ color: cores.dark }}
-                    >
-                      Espécie
-                    </h3>
+                    <h3 className="text-sm font-semibold" style={{ color: cores.dark }}>Espécie</h3>
+                    <p className="text-base text-gray-800">{especieLabel(pet.especie)}</p>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-semibold" style={{ color: cores.dark }}>Sexo</h3>
+                    <p className="text-base text-gray-800">{sexoLabel(pet.sexo)}</p>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-semibold" style={{ color: cores.dark }}>Nascimento</h3>
                     <p className="text-base text-gray-800">
-                      {especieLabel(pet.especie)}
+                      {pet.dataNascimento ? formato_data(pet.dataNascimento) : "Desconhecido"}
                     </p>
                   </div>
                   <div>
-                    <h3
-                      className="text-sm font-semibold"
-                      style={{ color: cores.dark }}
-                    >
-                      Sexo
-                    </h3>
-                    <p className="text-base text-gray-800">
-                      {sexoLabel(pet.sexo)}
-                    </p>
-                  </div>
-                  <div>
-                    <h3
-                      className="text-sm font-semibold"
-                      style={{ color: cores.dark }}
-                    >
-                      Nascimento
-                    </h3>
-                    <p className="text-base text-gray-800">
-                      {pet.dataNascimento
-                        ? formato_data(pet.dataNascimento)
-                        : "Desconhecido"}
-                    </p>
-                  </div>
-                  <div>
-                    <h3
-                      className="text-sm font-semibold"
-                      style={{ color: cores.dark }}
-                    >
-                      Idade
-                    </h3>
-                    <p className="text-base text-gray-800">
-                      {calcularIdade(pet.dataNascimento)}
-                    </p>
+                    <h3 className="text-sm font-semibold" style={{ color: cores.dark }}>Idade</h3>
+                    <p className="text-base text-gray-800">{calcularIdade(pet.dataNascimento)}</p>
                   </div>
                 </div>
 
                 <div className="mt-6">
-                  <h3
-                    className="text-sm font-semibold"
-                    style={{ color: cores.dark }}
-                  >
-                    Descrição
-                  </h3>
-                  <p className="mt-2 whitespace-pre-line text-gray-800">
-                    {pet.descricao}
-                  </p>
+                  <h3 className="text-sm font-semibold" style={{ color: cores.dark }}>Descrição</h3>
+                  <p className="mt-2 whitespace-pre-line text-gray-800">{pet.descricao}</p>
                 </div>
 
                 <div className="mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
