@@ -142,7 +142,11 @@ export const AdoptionForm = () => {
       } else {
         await postAdoption(payload);
         toast.success('Solicitação de adoção enviada com sucesso!');
-        navigate('/congratulations');
+        navigate('/congratulations', { 
+          state: { 
+            petId: Number(petId) 
+          }
+        });
       }
     } catch (error) {
       console.error('Erro capturado no onSubmit:', error);
