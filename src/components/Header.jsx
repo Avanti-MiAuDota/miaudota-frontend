@@ -4,7 +4,7 @@ import { MenuDesktop } from "./MenuDesktop";
 import { MenuMobile } from "./MenuMobile";
 import { useNavigate, Link } from "react-router-dom";
 import { MdOutlineAdminPanelSettings, MdOutlineLogout } from "react-icons/md";
-import { MdOutlineSettings, MdPersonOutline } from "react-icons/md";
+import { MdPersonOutline } from "react-icons/md";
 
 
 export const Header = () => {
@@ -36,15 +36,11 @@ export const Header = () => {
           }`}>
           {user && (
             <div className="flex items-center gap-2">
-              {user.role === "ADMIN" ? (
-                <div className="flex items-center gap-2">
-                  <MdOutlineAdminPanelSettings className="text-verde-escuro text-xl sm:text-2xl" />
-                </div>
-              ) : (
+              {user.role === "USUARIO" && 
                 <p className="text-verde-escuro text-sm font-medium mr-[-12px] sm:mr-0">
                   Olá, {getPrimeiroNome(user.nome || user.nomeCompleto)}!
                 </p>
-              )}
+              }
             </div>
           )}
 
@@ -56,7 +52,7 @@ export const Header = () => {
                   className="flex items-center cursor-pointer text-verde-escuro hover:text-verde-claro"
                   title="Painel do Admin"
                 >
-                  <MdOutlineSettings className="text-2xl sm:text-xl" />
+                  <MdOutlineAdminPanelSettings className="text-2xl sm:text-xl" />
                 </Link>
               ) : (
                 <Link
