@@ -249,10 +249,7 @@ export const PetProfile = () => {
                       className="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs md:text-sm font-medium leading-none whitespace-nowrap max-w-[10rem] truncate"
                       style={{
                         background: status_cor(pet.status, cores),
-                        color:
-                          pet.status === "ADOTADO"
-                            ? "white"
-                            : "var(--color-dark)",
+                        color: "white",
                       }}
                       title={statusLabel(pet.status)}
                     >

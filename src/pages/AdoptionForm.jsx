@@ -41,6 +41,7 @@ export const AdoptionForm = () => {
   const [submitting, setSubmitting] = useState(false);
   const [petName, setPetName] = useState('');
   const [previewImage, setPreviewImage] = useState(null);
+  const [petEspecie, setPetEspecie] = useState(null);
 
   const usuarioId = user?.dadosCompletos?.id || user?.id;
 
@@ -86,7 +87,8 @@ export const AdoptionForm = () => {
           if (adocao.petId) {
             const pet = await fetchPetById(adocao.petId);
             setPetName(pet.nome);
-            if (pet.foto) setPreviewImage(pet.foto);
+              if (pet.foto) setPreviewImage(pet.foto);
+              if (pet.especie) setPetEspecie(pet.especie);
           }
           reset({
             dataAdocao: adocao.dataAdocao.split('T')[0],
@@ -133,6 +135,7 @@ export const AdoptionForm = () => {
           setPetName(locationPet.nome || '');
           const fotoFromState = locationPet.foto || locationPet.fotos?.[0];
           if (fotoFromState) setPreviewImage(fotoFromState);
+          if (locationPet.especie) setPetEspecie(locationPet.especie);
           return;
         }
 
@@ -141,6 +144,7 @@ export const AdoptionForm = () => {
           setPetName(pet.nome || '');
           if (pet.foto) setPreviewImage(pet.foto);
           if (pet.fotos && pet.fotos.length > 0 && !pet.foto) setPreviewImage(pet.fotos[0]);
+          if (pet.especie) setPetEspecie(pet.especie);
         }
       } catch (error) {
         // Silenciar erro; não é crítico
@@ -211,12 +215,17 @@ export const AdoptionForm = () => {
 
           <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-6">
 
-            {/* Preview da foto dentro da área branca do formulário */}
             <div className="text-center">
               <div className="mb-4 flex justify-center">
                 <div className="w-40 h-40 rounded-full overflow-hidden bg-gray-100 flex items-center justify-center border-4"
                   style={{
-                    borderColor: previewImage ? 'var(--color-azul-marinho)' : 'var(--color-cinza-claro)'
+                    borderColor: previewImage
+                      ? (petEspecie === 'CAO'
+                          ? 'var(--color-verde-claro)'
+                          : petEspecie === 'GATO'
+                            ? 'var(--color-azul-marinho)'
+                            : 'var(--color-azul-marinho)')
+                      : 'var(--color-cinza-claro)'
                   }}
                 >
                   {previewImage ? (

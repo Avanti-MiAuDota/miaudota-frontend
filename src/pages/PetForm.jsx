@@ -196,12 +196,16 @@ export const PetForm = () => {
                 <div className="mb-4 flex justify-center">
                   <label
                     htmlFor="foto-upload"
-                    className="w-32 h-32 rounded-full flex items-center justify-center overflow-hidden cursor-pointer bg-gray-100 border-4 border-dashed border-gray-300"
+                    className="w-32 h-32 rounded-full flex items-center justify-center overflow-hidden cursor-pointer bg-gray-100 border-4 shadow-md"
                     style={{
                       borderColor: previewImage
-                        ? (especieValue === 'CAO' ? 'var(--color-verde-claro)' : especieValue === 'GATO' ? 'var(--color-azul-marinho)' : 'var(--color-laranja)')
+                        ? (especieValue === 'CAO'
+                            ? 'var(--color-verde-claro)'
+                            : especieValue === 'GATO'
+                              ? 'var(--color-azul-marinho)'
+                              : 'var(--color-cinza-claro)')
                         : 'var(--color-cinza-claro)',
-                      borderStyle: previewImage ? 'solid' : 'dashed',
+                      borderStyle: previewImage ? 'solid' : 'dashed'
                     }}
                   >
                     {previewImage ? (

@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import { Toaster } from 'react-hot-toast'; // Importação adicionada
+import { Toaster } from 'react-hot-toast';
 import { Header } from "./components/Header";
 import { ScrollToTop } from "./components/ScrollToTop";
 import { About } from "./pages/About";
