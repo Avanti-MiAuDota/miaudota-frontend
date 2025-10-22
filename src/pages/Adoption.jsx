@@ -12,6 +12,7 @@ import {
   FaEnvelope,
   FaPaw
 } from "react-icons/fa";
+import { CustomLoader } from "../components/CustomLoader";
 
 export const Adoption = () => {
   const { adoptionId } = useParams();
@@ -58,12 +59,7 @@ export const Adoption = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[var(--color-verde-fraco)] to-[var(--color-azul-fraco)] flex items-center justify-center">
-        <div className="text-center">
-          <FaPaw className="w-16 h-16 text-[var(--color-verde-escuro)] animate-bounce mx-auto mb-4" />
-          <p className="text-[var(--color-verde-escuro)] text-lg font-medium">Carregando...</p>
-        </div>
-      </div>
+      <CustomLoader />
     );
   }
 
