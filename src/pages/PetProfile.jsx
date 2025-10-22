@@ -206,6 +206,11 @@ export const PetProfile = () => {
 
   // Define as constantes após garantir que `pet` existe
   const cores = temas_cor(pet.especie);
+  // Determina a cor do texto do status (branco para os status principais)
+  const statusTextColor = (status) =>
+    ["DISPONIVEL", "EM_ANALISE", "ADOTADO"].includes(status)
+      ? "white"
+      : "var(--color-dark)";
   const fotoUrl = pet.foto || "https://placehold.co/256x256/E2E8F0/718096?text=Pet";
   const mostrarBotaoAdotar = pet.status !== "ADOTADO" && user?.role !== "ADMIN";
 
@@ -245,11 +250,12 @@ export const PetProfile = () => {
                   </div>
                   <div className="text-right">
                     <p
-                      className="inline-block px-3 py-1 rounded-full text-sm font-medium"
+                      className="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs md:text-sm font-medium leading-none whitespace-nowrap max-w-[10rem] truncate"
                       style={{
                         background: status_cor(pet.status, cores),
-                        color: pet.status === "ADOTADO" ? "white" : "var(--color-dark)",
+                        color: statusTextColor(pet.status),
                       }}
+                      title={statusLabel(pet.status)}
                     >
                       {statusLabel(pet.status)}
                     </p>

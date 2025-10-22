@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -40,12 +40,16 @@ export const AdoptionForm = () => {
   const [loading, setLoading] = useState(isEdit);
   const [submitting, setSubmitting] = useState(false);
   const [petName, setPetName] = useState('');
+  const [previewImage, setPreviewImage] = useState(null);
 
   const usuarioId = user?.dadosCompletos?.id || user?.id;
 
   const { register, handleSubmit, setValue, watch, formState: { errors }, reset } = useForm({
     resolver: zodResolver(adoptionSchema),
   });
+
+  const location = useLocation();
+  const locationPet = location.state?.pet;
 
   const aceitouTermo = watch('aceitouTermo') || false;
   const cep = watch('endereco.cep');
@@ -82,6 +86,7 @@ export const AdoptionForm = () => {
           if (adocao.petId) {
             const pet = await fetchPetById(adocao.petId);
             setPetName(pet.nome);
+            if (pet.foto) setPreviewImage(pet.foto);
           }
           reset({
             dataAdocao: adocao.dataAdocao.split('T')[0],
@@ -118,6 +123,34 @@ export const AdoptionForm = () => {
     }
   }, [adoptionId, isEdit, reset, navigate]);
 
+  // Se não for edição (nova solicitação), buscar o pet pelo petId (quando fornecido na rota)
+  useEffect(() => {
+    const fetchPet = async () => {
+      if (!petId) return;
+      try {
+        // Se o pet veio no location.state (navegação do Match), usa-o sem fazer fetch
+        if (locationPet) {
+          setPetName(locationPet.nome || '');
+          const fotoFromState = locationPet.foto || locationPet.fotos?.[0];
+          if (fotoFromState) setPreviewImage(fotoFromState);
+          return;
+        }
+
+        const pet = await fetchPetById(petId);
+        if (pet) {
+          setPetName(pet.nome || '');
+          if (pet.foto) setPreviewImage(pet.foto);
+          if (pet.fotos && pet.fotos.length > 0 && !pet.foto) setPreviewImage(pet.fotos[0]);
+        }
+      } catch (error) {
+        // Silenciar erro; não é crítico
+        console.error('Erro ao buscar pet para preview:', error);
+      }
+    };
+
+    fetchPet();
+  }, [petId]);
+
   const onSubmit = async (data) => {
     if (!usuarioId) {
       toast.error('Usuário não autenticado.');
@@ -141,7 +174,7 @@ export const AdoptionForm = () => {
       } else {
         await postAdoption(payload);
         toast.success('Solicitação de adoção enviada com sucesso!');
-        navigate('/congratulations');
+        navigate('/congratulations', {state: { petId }});
       }
     } catch (error) {
       const apiErrors = error.response?.data?.errors;
@@ -173,10 +206,32 @@ export const AdoptionForm = () => {
             <h1 className="text-2xl font-bold text-white">
               {isEdit ? 'Editar Adoção' : 'Nova Solicitação de Adoção'}
             </h1>
-            {petName && <p className="text-white mt-2 text-sm">Pet: {petName}</p>}
+           
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-6">
+
+            {/* Preview da foto dentro da área branca do formulário */}
+            <div className="text-center">
+              <div className="mb-4 flex justify-center">
+                <div className="w-40 h-40 rounded-full overflow-hidden bg-gray-100 flex items-center justify-center border-4"
+                  style={{
+                    borderColor: previewImage ? 'var(--color-azul-marinho)' : 'var(--color-cinza-claro)'
+                  }}
+                >
+                  {previewImage ? (
+                    <img src={previewImage} alt="Preview do Pet" className="w-full h-full object-cover" />
+                  ) : (
+                    <svg className="w-16 h-16 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.776 48.776 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z" />
+                    </svg>
+                  )}
+                </div>
+              </div>
+               {petName && <h1 className="text-gray-800 mt-2 text-sm">Pet: {petName}</h1>}
+            </div>
+
             <InputField
               label="Data *"
               type="date"
