@@ -10,7 +10,7 @@ import { AdoptionProcess } from '../components/AdoptionProcess';
 export const About = () => {
   return (
     <div className="relative min-h-[calc(100vh-100px)] bg-gray-100 px-4 py-12">
-      <div className="absolute top-6 left-6">
+        <div className="sm:absolute sm:top-6 sm:left-6">
         <ReturnButton />
       </div>
 
