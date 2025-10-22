@@ -144,19 +144,17 @@ export const AdoptionForm = () => {
         navigate('/congratulations');
       }
     } catch (error) {
+      console.error('Erro ao processar a solicitação:', error);
+
       const apiErrors = error.response?.data?.errors;
       const apiMessage = error.response?.data?.message || error.response?.data?.error;
 
       if (Array.isArray(apiErrors)) {
         apiErrors.forEach(errMsg => toast.error(errMsg));
       } else if (apiMessage) {
-        if (apiMessage.includes('solicitação de adoção')) {
-          toast.error('Já existe uma solicitação de adoção para este pet por este usuário.');
-        } else {
-          toast.error(apiMessage);
-        }
+        toast.error(apiMessage);
       } else {
-        toast.error('Erro ao processar a solicitação.');
+        toast.error('Erro inesperado ao processar a solicitação.');
       }
     } finally {
       setSubmitting(false);
