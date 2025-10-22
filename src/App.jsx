@@ -52,7 +52,6 @@ function App() {
           <Route path="/pets/:petId/adoptions" element={<Adoptions />} />
           <Route path="/adoptions/:adoptionId" element={<Adoption />} />
           <Route path="/pets/adopt/:petId" element={<AdoptionForm />} />
-          <Route path="/adoptions/edit/:adoptionId" element={<AdoptionForm />} />
           <Route path="/congratulations" element={<Match />} />
           <Route path="/forbidden" element={<Unauthorized />} />
           <Route path="*" element={<NotFound />} />
