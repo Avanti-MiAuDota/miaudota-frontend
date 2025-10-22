@@ -124,6 +124,7 @@ export const AdoptionForm = () => {
       return;
     }
 
+    console.log('Iniciando submissão do formulário...');
     setSubmitting(true);
     try {
       const payload = {
@@ -151,17 +152,16 @@ export const AdoptionForm = () => {
 
       if (Array.isArray(apiErrors)) {
         apiErrors.forEach(errMsg => {
-          console.error('Erro da API (array):', errMsg);
           toast.error(errMsg);
         });
       } else if (apiMessage) {
-        console.error('Mensagem da API:', apiMessage);
         toast.error(apiMessage);
       } else {
-        console.error('Erro inesperado:', error);
         toast.error('Erro inesperado ao processar a solicitação.');
+        console.log('Toast de erro exibido para erro inesperado.');
       }
     } finally {
+      console.log('Finalizando submissão do formulário...');
       setSubmitting(false);
     }
   };

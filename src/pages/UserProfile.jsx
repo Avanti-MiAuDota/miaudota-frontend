@@ -8,7 +8,7 @@ import {
   deleteUsuario,
 } from "../api/usuario";
 import { getPet } from "../api/pet";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { CustomLoader } from "../components/CustomLoader";
 
 export const UserProfile = () => {
@@ -392,7 +392,6 @@ export const UserProfile = () => {
             )}
           </>
         )}
-        <Toaster position="top-center" reverseOrder={false} />
       </div>
       {/* Modal de confirmação de exclusão de usuário */}
       {showDeleteModal && (
