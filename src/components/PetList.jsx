@@ -5,14 +5,20 @@ import { CustomLoader } from "../components/CustomLoader.jsx"
 import { useResponsiveLimit } from "../hooks/useResponsiveLimit"
 import { FcNext, FcPrevious } from "react-icons/fc"
 
-export const PetList = () => {
-  const [pets, setPets] = useState([])
-  const [loading, setLoading] = useState(true)
+export const PetList = ({ items }) => {
+  const [pets, setPets] = useState(items ?? [])
+  const [loading, setLoading] = useState(!Array.isArray(items))
   const [error, setError] = useState(null)
+
   const [page, setPage] = useState(1)
   const limit = useResponsiveLimit()
 
   useEffect(() => {
+    if (Array.isArray(items)) {
+      setPets(items)
+      setLoading(false)
+      return
+    }
     const fetchPets = async () => {
       try {
         const result = await getPets()
@@ -26,7 +32,7 @@ export const PetList = () => {
       }
     }
     fetchPets()
-  }, [])
+  }, [items])
 
   if (loading) {
     return <CustomLoader />
