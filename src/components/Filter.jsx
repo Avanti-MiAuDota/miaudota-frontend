@@ -34,7 +34,7 @@ const textMatches = (haystack, needle) => {
   return normalize(haystack).includes(normalize(needle))
 }
 
-export const Filter = ({ initial = {}, items, onFiltered, onApply, onChange }) => {
+export const Filter = ({ initial = {}, items, onFiltered, onChange }) => {
   const [q, setQ] = useState(initial.q || "")
   const [status, setStatus] = useState(initial.status || "")
   const [species, setSpecies] = useState(initial.species || "")
@@ -44,18 +44,42 @@ export const Filter = ({ initial = {}, items, onFiltered, onApply, onChange }) =
   const mobileInputRef = useRef(null)
 
   useEffect(() => {
-    if (typeof onChange !== "function") return
     const t = setTimeout(() => {
-      onChange({
+      const filters = {
         q: q?.trim() || undefined,
         status: status || undefined,
         species: species || undefined,
         sex: sex || undefined,
-      })
+      }
+
+      const hasAnyFilter = Boolean(
+        (filters.q && String(filters.q).length > 0) ||
+          filters.status ||
+          filters.species ||
+          filters.sex
+      )
+
+      // If parent provided items + onFiltered, apply local filtering in real-time
+      if (Array.isArray(items) && typeof onFiltered === "function") {
+        setLoading(true)
+        try {
+          const filtered = filterItems(items, filters)
+          onFiltered(filtered)
+        } finally {
+          setLoading(false)
+        }
+        return
+      }
+
+      // Otherwise, emit the filters to the parent so it can fetch/filter
+      if (hasAnyFilter && typeof onChange === "function") {
+        onChange(filters)
+      }
     }, 300)
+
     return () => clearTimeout(t)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [q, status, species, sex])
+  }, [q, status, species, sex, items, onFiltered, onChange])
 
   const buildFilters = () => ({
     q: q?.trim() || undefined,
@@ -95,65 +119,7 @@ export const Filter = ({ initial = {}, items, onFiltered, onApply, onChange }) =
     })
   }
 
-  const fetchRemote = async (filters) => {
-    const base = (import.meta.env.VITE_API_BASE_URL || "/api").replace(/\/$/, "")
-    const params = new URLSearchParams()
-    if (filters.q) params.set("q", filters.q)
-    if (filters.status) params.set("status", filters.status)
-    if (filters.species) params.set("species", filters.species)
-    if (filters.sex) params.set("sex", filters.sex)
-    const url = `${base}/pets?${params.toString()}`
-    const res = await fetch(url)
-    if (!res.ok) throw new Error(`Fetch error ${res.status}`)
-    const json = await res.json()
-    return Array.isArray(json) ? json : json?.data ?? json?.items ?? []
-  }
-
-  const apply = async () => {
-    const filters = buildFilters()
-    onApply && onApply(filters)
-
-    if (Array.isArray(items) && typeof onFiltered === "function") {
-      setLoading(true)
-      try {
-        const filtered = filterItems(items, filters)
-        onFiltered(filtered)
-      } finally {
-        setLoading(false)
-      }
-      return
-    }
-
-    if (typeof onFiltered === "function") {
-      setLoading(true)
-      try {
-        const list = await fetchRemote(filters)
-        onFiltered(list)
-      } catch (err) {
-        console.error("Filter fetch error:", err)
-        onFiltered([])
-      } finally {
-        setLoading(false)
-      }
-      return
-    }
-
-    window.dispatchEvent(new CustomEvent("filter:apply", { detail: filters }))
-  }
-
-  const clear = () => {
-    setQ("")
-    setStatus("")
-    setSpecies("")
-    setSex("")
-    onApply && onApply({})
-    if (Array.isArray(items) && typeof onFiltered === "function") {
-      onFiltered(items)
-    } else if (typeof onFiltered === "function") {
-      onFiltered([])
-    }
-    onChange && onChange({})
-  }
+  // Remote fetch/apply/clear removed: filter now works in real-time
 
   return (
     <form className="w-full mb-3 px-4" onSubmit={(e) => e.preventDefault()}>
@@ -209,22 +175,7 @@ export const Filter = ({ initial = {}, items, onFiltered, onApply, onChange }) =
         </select>
 
         <div className="ml-auto flex items-center gap-2">
-          <button
-            type="button"
-            onClick={clear}
-            className="px-4 py-2 rounded border text-sm min-w-[110px] text-center"
-          >
-            Limpar
-          </button>
-          <button
-            type="button"
-            onClick={apply}
-            className="px-4 py-2 rounded text-white text-sm min-w-[110px] text-center"
-            style={{ backgroundColor: "var(--color-verde-escuro)" }}
-            disabled={loading}
-          >
-            {loading ? "Buscando..." : "Aplicar"}
-          </button>
+          {/* Buttons removed: filter applies in real-time */}
         </div>
       </div>
 
@@ -282,18 +233,7 @@ export const Filter = ({ initial = {}, items, onFiltered, onApply, onChange }) =
         </select>
 
         <div className="flex gap-2">
-          <button type="button" onClick={clear} className="flex-1 px-4 py-2 rounded border text-sm">
-            Limpar
-          </button>
-          <button
-            type="button"
-            onClick={apply}
-            className="flex-1 px-4 py-2 rounded text-white text-sm"
-            style={{ backgroundColor: "var(--color-verde-escuro)" }}
-            disabled={loading}
-          >
-            {loading ? "Buscando..." : "Aplicar"}
-          </button>
+          {/* Buttons removed: filter applies in real-time */}
         </div>
       </div>
     </form>
