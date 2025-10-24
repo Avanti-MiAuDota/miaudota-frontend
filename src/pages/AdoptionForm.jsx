@@ -12,14 +12,23 @@ import { postAdoption, updateAdoption, getAdoptionById, fetchPetById } from '../
 import { useAuth } from '../contexts/AuthContext';
 
 const addressSchema = z.object({
-  cep: z.string().regex(/^\d{8}$/, 'O CEP deve conter 8 dígitos numéricos.'),
+  cep: z
+    .string()
+    .regex(/^\d{5}-?\d{3}$/, 'CEP inválido. Exemplo: 12345-678')
+    .transform((val) => val.replace(/\D/g, '')), 
   logradouro: z.string().min(1, 'O logradouro é obrigatório.'),
   numero: z.string().min(1, 'O número é obrigatório.'),
   complemento: z.string().optional(),
   bairro: z.string().min(1, 'O bairro é obrigatório.'),
   cidade: z.string().min(1, 'A cidade é obrigatória.'),
   estado: z.string().length(2, 'O estado deve ter 2 caracteres.').transform(val => val.toUpperCase()),
-  telefone: z.string().min(1, 'O telefone é obrigatório.'),
+  telefone: z
+    .string()
+    .regex(
+      /^\(?\d{2}\)?\s?\d{4,5}-?\d{4}$/,
+      'Telefone inválido. Exemplo: (85) 91234-5678'
+    )
+    .transform((val) => val.replace(/\D/g, '')),
 });
 
 const adoptionSchema = z.object({
@@ -213,14 +222,15 @@ export const AdoptionForm = () => {
                   name="endereco.cep"
                   register={register}
                   error={errors.endereco?.cep?.message}
+                  placeholder="12345-678"
                 />
-                <InputField label="Logradouro *" name="endereco.logradouro" register={register} error={errors.endereco?.logradouro?.message} />
-                <InputField label="Número *" name="endereco.numero" register={register} error={errors.endereco?.numero?.message} />
-                <InputField label="Complemento" name="endereco.complemento" register={register} />
-                <InputField label="Bairro *" name="endereco.bairro" register={register} error={errors.endereco?.bairro?.message} />
-                <InputField label="Cidade *" name="endereco.cidade" register={register} error={errors.endereco?.cidade?.message} />
-                <InputField label="Estado *" name="endereco.estado" register={register} error={errors.endereco?.estado?.message} />
-                <InputField label="Telefone *" name="endereco.telefone" register={register} error={errors.endereco?.telefone?.message} />
+                <InputField label="Logradouro *" name="endereco.logradouro" register={register} error={errors.endereco?.logradouro?.message} placeholder="Rua das Flores" />
+                <InputField label="Número *" name="endereco.numero" register={register} error={errors.endereco?.numero?.message} placeholder="123" />
+                <InputField label="Complemento" name="endereco.complemento" register={register} placeholder="Apto 456" />
+                <InputField label="Bairro *" name="endereco.bairro" register={register} error={errors.endereco?.bairro?.message} placeholder="Bairro das Árvores" />
+                <InputField label="Cidade *" name="endereco.cidade" register={register} error={errors.endereco?.cidade?.message} placeholder="Fortaleza" />
+                <InputField label="Estado *" name="endereco.estado" register={register} error={errors.endereco?.estado?.message} placeholder="CE" />
+                <InputField label="Telefone *" name="endereco.telefone" register={register} error={errors.endereco?.telefone?.message} placeholder="(xx) xxxx-xxxx" />
               </div>
             </div>
 
