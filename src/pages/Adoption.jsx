@@ -57,6 +57,29 @@ export const Adoption = () => {
     }
   };
 
+  const formatSpecies = (species) => {
+    switch (species) {
+      case "CACHORRO":
+      case "CAO":
+        return "Cachorro";
+      case "GATO":
+        return "Gato";
+      default:
+        return species;
+    }
+  };
+
+  const formatGender = (gender) => {
+    switch (gender) {
+      case "MACHO":
+        return "Macho";
+      case "FEMEA":
+        return "Fêmea";
+      default:
+        return gender;
+    }
+  };
+
   if (loading) {
     return (
       <CustomLoader />
@@ -65,7 +88,7 @@ export const Adoption = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[var(--color-verde-fraco)] to-[var(--color-azul-fraco)] flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br flex items-center justify-center p-4">
         <div className="bg-white rounded-2xl shadow-lg p-8 max-w-md">
           <p className="text-red-500 text-center">{error}</p>
         </div>
@@ -74,7 +97,7 @@ export const Adoption = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[var(--color-verde-fraco)] to-[var(--color-azul-fraco)] px-4 py-8">
+    <div className="min-h-screen bg-gradient-to-br px-4 py-8">
       <div className="max-w-5xl mx-auto">
         <div className="mb-6">
           <ReturnButton />
@@ -162,11 +185,11 @@ export const Adoption = () => {
                   <div className="grid grid-cols-2 gap-4">
                     <div className="bg-white rounded-xl p-3">
                       <p className="text-sm text-[var(--color-cinza-claro)]">Espécie</p>
-                      <p className="font-semibold text-[var(--color-dark)]">{adoption.pet.especie}</p>
+                      <p className="font-semibold text-[var(--color-dark)]">{formatSpecies(adoption.pet.especie)}</p>
                     </div>
                     <div className="bg-white rounded-xl p-3">
                       <p className="text-sm text-[var(--color-cinza-claro)]">Gênero</p>
-                      <p className="font-semibold text-[var(--color-dark)]">{adoption.pet.sexo}</p>
+                      <p className="font-semibold text-[var(--color-dark)]">{formatGender(adoption.pet.sexo)}</p>
                     </div>
                   </div>
                   <div className="bg-white rounded-xl p-4">
@@ -230,13 +253,13 @@ export const Adoption = () => {
             </section>
 
             {/* Atualizar Status */}
-            <section className="bg-gradient-to-br from-[var(--color-azul-fraco)] to-white rounded-2xl p-6 border-2 border-[var(--color-azul-marinho)]">
-              <h2 className="text-2xl font-bold text-[var(--color-azul-marinho)] mb-4 flex items-center gap-2">
+            <section className="bg-gradient-to-br from-[var(--color-azul-fraco)] to-white rounded-2xl p-6 border-2 border-[var(--color-azul)]">
+              <h2 className="text-2xl font-bold text-[var(--color-azul)] mb-4 flex items-center gap-2">
                 <FaCheckCircle className="w-6 h-6" />
                 Atualizar Status
               </h2>
               <select
-                className="w-full p-4 border-2 border-[var(--color-azul)] rounded-xl bg-white text-[var(--color-dark)] font-semibold focus:outline-none focus:ring-4 focus:ring-[var(--color-azul-fraco)] transition-all cursor-pointer hover:border-[var(--color-azul-marinho)]"
+                className="w-full p-4 border-2 border-[var(--color-azul)] rounded-xl bg-white text-[var(--color-dark)] font-semibold focus:outline-none focus:ring-4 focus:ring-[var(--color-azul-fraco)] transition-all cursor-pointer hover:border-[var(--color-azul)]"
                 value={adoption.status}
                 onChange={handleStatusChange}
               >

@@ -10,6 +10,7 @@ import {
 import { getPet } from "../api/pet";
 import toast from "react-hot-toast";
 import { CustomLoader } from "../components/CustomLoader";
+import { AdoptionStatusMessage } from "../components/AdoptionStatusMessage";
 
 export const UserProfile = () => {
   const { id } = useParams();
@@ -279,10 +280,7 @@ export const UserProfile = () => {
                               <span className="font-medium">Status da Adoção:</span>{" "}
                               <span className="font-medium text-azul">{adocao.status}</span>
                             </li>
-                            {adocao.status !== "APROVADA" &&
-                            <li>
-                             <small className="text-red-500">O abrigo entrará em contato com você em breve para finalizar o processo de adoção!</small>
-                            </li>}
+                            <p className="font-medium">{adocao.status && <AdoptionStatusMessage status={adocao.status} />}</p>
                           </ul>
                         </div>
                       ))}
