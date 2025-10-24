@@ -17,6 +17,7 @@ export const PetList = ({ items }) => {
     if (Array.isArray(items)) {
       setPets(items)
       setLoading(false)
+      setPage(1)
       return
     }
     const fetchPets = async () => {
