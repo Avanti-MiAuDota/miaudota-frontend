@@ -1,29 +1,42 @@
 import { useEffect, useState } from 'react';
-import { getAdoptions } from '../api/adocao';
+import { getAdoptionsByPetId } from '../api/adocao';
 import { CustomLoader } from '../components/CustomLoader';
 import { ReturnButton } from '../components/ReturnButton';
 import { FaDog, FaCat, FaArrowRight } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export const Adoptions = () => {
+  const { petId } = useParams();
   const [adoptions, setAdoptions] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("Iniciando fetchAdoptions..."); // Log inicial
+    console.log("Estado inicial de adoptions:", adoptions); // Log do estado inicial
+    console.log("Pet ID recebido:", petId); // Log para verificar o petId
+
     const fetchAdoptions = async () => {
       try {
-        const data = await getAdoptions();
+        console.log("Chamando API com petId:", petId); // Log antes da chamada da API
+        const data = await getAdoptionsByPetId(petId);
+        console.log("Resposta da API para adoções:", data); // Log da resposta da API
         setAdoptions(data);
+        console.log("Estado atualizado de adoptions:", data); // Log após atualizar o estado
       } catch (error) {
         console.error('Erro ao buscar adoções:', error);
       } finally {
         setLoading(false);
+        console.log("Finalizando fetchAdoptions, loading:", loading); // Log ao finalizar
       }
     };
 
-    fetchAdoptions();
-  }, []);
+    if (petId) {
+      fetchAdoptions();
+    } else {
+      console.warn("Nenhum petId fornecido."); // Log de aviso caso petId não esteja definido
+    }
+  }, [petId]); // Adiciona petId como dependência do useEffect
 
   const getPetIcon = (species) => {
     switch (species) {
