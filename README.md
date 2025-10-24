@@ -118,7 +118,6 @@ O backend deve estar rodando em `http://localhost:8080`
 5. **Acesse no navegador:**
    [http://localhost:5173](http://localhost:5173)
 
-
 ## Estrutura de Rotas
 
 As principais rotas da aplicação são:
@@ -137,6 +136,44 @@ As principais rotas da aplicação são:
 - `/congratulations` — Tela de match
 - `/401` — Não autorizado
 - `*` — Página não encontrada
+
+### Integração com EmailJS (formulário de contato)
+
+Esta aplicação usa EmailJS para enviar as mensagens do formulário de contato diretamente para um e-mail configurado no painel do EmailJS. A seguir está um passo-a-passo para configurar e testar localmente.
+
+1. Instale a dependência (cliente browser):
+
+```powershell
+npm install @emailjs/browser
+```
+
+2. Variáveis de ambiente (Vite)
+- Crie/edite o arquivo `.env` na raiz do projeto e adicione as variáveis abaixo (substitua pelos valores do seu painel EmailJS):
+
+```
+VITE_EMAILJS_SERVICE_ID=seu_service_id
+VITE_EMAILJS_TEMPLATE_ID=seu_template_id
+VITE_EMAILJS_PUBLIC_KEY=seu_public_key
+```
+- Observações:
+   - Vite expõe apenas variáveis que começam com `VITE_` para o código cliente.
+   - Reinicie o servidor de desenvolvimento após editar `.env`.
+
+3. Template do EmailJS
+- No painel do EmailJS, crie um template (ou edite o existente). Use as mesmas variáveis que o frontend envia:
+   - `from_name`
+   - `from_email`
+   - `message`
+- No campo "To" do template, coloque o e-mail que deve receber as mensagens.
+
+4. Onde o código está
+- O componente de contato está em `src/components/Contact.jsx`.
+- Ele usa `@emailjs/browser` e espera as env vars acima. 
+
+5. Fluxo de envio (resumo técnico)
+- O componente valida campos localmente (nome, email, mensagem).
+- Chama `emailjs.init(PUBLIC_KEY)` e `emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams)`.
+- Exibe feedback ao usuário com toasts (sucesso/erro).
 
 ## Equipe de Desenvolvimento
 
