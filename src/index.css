@@ -35,3 +35,10 @@
   width: 100%;
 }
 
+/* Ensure custom semantic classes behave reliably across browsers/builds */
+.bg-azul { background-color: var(--color-azul); }
+.bg-laranja { background-color: var(--color-laranja); }
+.bg-azul:hover { background-color: var(--color-laranja) !important; }
+.bg-laranja:hover { background-color: var(--color-azul) !important; }
+
+

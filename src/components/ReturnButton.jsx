@@ -12,7 +12,7 @@ export const ReturnButton = () => {
   return (
     <button
       onClick={handleReturn}
-      className="inline-flex items-center gap-2 bg-laranja text-white font-bold py-2 px-4 rounded-md hover:bg-azul focus:outline-none focus:ring-2 focus:ring-light focus:ring-opacity-75 transition-colors cursor-pointer"
+      className="inline-flex items-center gap-2 bg-laranja text-white font-bold py-2 px-4 rounded-md hover:bg-azul focus:outline-none focus:ring-2 focus:ring-light focus:ring-opacity-75 cursor-pointer transition-transform hover:scale-105"
     >
       <IoArrowBack size={20} />
       <span>Voltar</span>

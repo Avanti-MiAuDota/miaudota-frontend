@@ -248,7 +248,7 @@ export const PetProfile = () => {
                       className="inline-block px-3 py-1 rounded-full text-sm font-medium"
                       style={{
                         background: status_cor(pet.status, cores),
-                        color: pet.status === "ADOTADO" ? "white" : "var(--color-dark)",
+                        color: "white",
                         whiteSpace: "nowrap",
                       }}
                     >
