@@ -2,7 +2,18 @@ import api from "../services/api.js";
 
 export const getPets = async () => {
   const { data } = await api.get("/pets");
-  return data;
+
+  // Normaliza formatos possíveis da API e garante que seja um array
+  if (Array.isArray(data)) return data
+  if (Array.isArray(data?.data)) return data.data
+  if (Array.isArray(data?.pets)) return data.pets
+  if (Array.isArray(data?.items)) return data.items
+  // handle nested wrappers like { data: { items: [...] } }
+  if (Array.isArray(data?.data?.items)) return data.data.items
+  if (Array.isArray(data?.data?.pets)) return data.data.pets
+
+  // fallback: se veio vazio ou formato inesperado, retorna array vazio
+  return []
 };
 
 export const getPet = async (id) => {
