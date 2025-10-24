@@ -73,7 +73,7 @@ export async function getAdoptionById(adoptionId) {
 export async function getAdoptionsByPetId(petId) {
   const token = localStorage.getItem("token");
   try {
-    const response = await axios.get(`/adoptions?petId=${petId}`, {
+    const response = await axios.get(`/adocoes/por-pet?petId=${petId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return response.data;
