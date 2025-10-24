@@ -6,7 +6,7 @@ export const useResponsiveLimit = () => {
   useEffect(() => {
     const updateLimit = () => {
       const isMobile = window.innerWidth < 768;
-      setLimit(isMobile ? 5 : 12);
+      setLimit(isMobile ? 10 : 12);
     };
 
     updateLimit();
