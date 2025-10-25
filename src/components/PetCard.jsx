@@ -10,8 +10,8 @@ export const PetCard = ({ pet }) => {
   const { user } = useAuth();
 
   const statusClasses = {
-    DISPONIVEL: "bg-verde-claro text-white font-bold",
-    EM_ANALISE: "bg-laranja text-white font-bold",
+    DISPONIVEL: "bg-[var(--color-verde-escuro)] text-white font-bold",
+    EM_ANALISE: "bg-laranja-escuro text-white font-bold",
     ADOTADO: "bg-cinza-claro text-white font-bold",
   };
 
