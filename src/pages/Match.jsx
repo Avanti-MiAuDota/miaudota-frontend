@@ -29,7 +29,7 @@ const MatchAnimation = ({ petType, onFinish }) => {
   // Gradiente de fundo personalizado por espécie
   const bgGradient = isCat
     ? "linear-gradient(135deg, var(--color-azul-marinho), var(--color-azul-fraco))"
-    : "linear-gradient(135deg, var(--color-verde-claro), var(--color-verde-fraco))";
+    : "linear-gradient(135deg, var(--color-verde-escuro), var(--color-verde-claro))";
 
   // =============================================
   // EMOJIS DINÂMICOS: Cria array de emojis com propriedades aleatórias
@@ -218,7 +218,7 @@ const PetCardAfterMatch = ({ pet, user }) => {
       style={{
         background: isCat
           ? "linear-gradient(180deg, var(--color-azul-fraco), var(--color-azul-marinho))"
-          : "linear-gradient(180deg, var(--color-verde-fraco), var(--color-verde-escuro))",
+          : "linear-gradient(180deg, var(--color-verde-fraco), var(--color-verde-escuro)",
       }}
       initial={{ opacity: 0 }} // Fade in suave
       animate={{ opacity: 1 }}

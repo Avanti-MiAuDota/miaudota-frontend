@@ -63,11 +63,11 @@ export const Adoptions = () => {
         {adoptions.length === 0 ? (
           <p className="text-center text-gray-600">Nenhuma adoção encontrada.</p>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className={adoptions.length === 1 ? 'flex justify-center' : 'grid grid-cols-1 md:grid-cols-2 gap-6'}>
             {adoptions.map((adoption) => (
               <div
                 key={adoption.id}
-                className="bg-white shadow-md rounded-lg p-4 border border-gray-200 hover:shadow-lg transition-shadow duration-300 flex items-center justify-between"
+                className={`${adoptions.length === 1 ? 'w-full max-w-2xl mx-auto' : ''} bg-white shadow-md rounded-lg p-4 border border-gray-200 hover:shadow-lg transition-shadow duration-300 flex items-center justify-between`}
               >
                 <div>
                   <div className="flex items-center gap-2 mb-2">
