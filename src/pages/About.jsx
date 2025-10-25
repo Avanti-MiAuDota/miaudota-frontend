@@ -15,7 +15,7 @@ export const About = () => {
       </div>
 
       <main className="container mx-auto px-6 max-w-6xl">
-        <section className="mb-10 fade-in text-center">
+  <section className="mb-10 fade-in text-center">
           <div className="mb-4">
             <img src={miaulogo} alt="Logo MiAuDota" className="mx-auto" style={{ maxWidth: '320px', width: '60%', height: 'auto' }} />
           </div>
@@ -31,27 +31,36 @@ export const About = () => {
           <div className="mt-6 flex flex-wrap gap-3 justify-center">
             <Link
               to="/pets"
-              className="inline-block px-5 py-3 rounded-lg shadow transform transition duration-200 ease-in-out hover:-translate-y-1 hover:scale-105 hover:shadow-lg active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2"
-              style={{ backgroundColor: 'var(--color-azul)', color: 'white' }}
+              className="inline-block px-5 py-3 rounded-lg shadow transform transition duration-200 ease-in-out hover:-translate-y-1 hover:scale-105 hover:bg-laranja active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-azul text-white"
               aria-label="Ver pets para adoção"
             >
               Ver pets para adoção
             </Link>
-            <a
-              href="mailto:contato@miaudota.org"
-              className="inline-flex items-center px-5 py-3 border rounded-lg transform transition duration-200 ease-in-out hover:-translate-y-1 hover:scale-105 hover:shadow-lg active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2"
-              style={{ borderColor: 'var(--color-verde-escuro)', color: 'var(--color-dark)' }}
-              aria-label="Entrar em contato"
-            >
-              <FaEnvelope className="inline mr-2" />Entrar em contato
-            </a>
+              <button
+                type="button"
+                onClick={() => {
+                  const el = document.getElementById('contact-section');
+                  if (el) {
+                    const y = el.getBoundingClientRect().top + window.pageYOffset - 100; 
+                    window.scrollTo({ top: y, behavior: 'smooth' });
+                  }
+                }}
+                className="inline-flex items-center px-5 py-3 border rounded-lg transform transition duration-200 ease-in-out hover:-translate-y-1 hover:scale-105 hover:bg-verde-claro hover:shadow-lg active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2"
+                style={{ borderColor: 'var(--color-verde-escuro)', color: 'var(--color-dark)' }}
+                aria-label="Entrar em contato"
+              >
+                <FaEnvelope className="inline mr-2" />Entrar em contato
+              </button>
           </div>
         </section>
 
-        <Mission />
+        
+          <Mission />
 
-        <AdoptionProcess />
-        <Contact/>
+          <AdoptionProcess />
+          <div id="contact-section">
+          <Contact />
+        </div>
       </main>
     </div>
   );

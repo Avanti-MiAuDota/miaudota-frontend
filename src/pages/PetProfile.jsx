@@ -72,7 +72,7 @@ const temas_cor = (especie) => {
       light: "var(--color-azul-fraco)",
       dark: "var(--color-azul-escuro)",
       border: "var(--color-azul-marinho)",
-      disponivel: "var(--color-verde-claro)",
+      disponivel: "var(--color-verde-escuro)",
       emAnalise: "var(--color-laranja)",
       adotado: "var(--color-cinza-claro)",
     };
@@ -84,8 +84,8 @@ const temas_cor = (especie) => {
     light: "var(--color-verde-fraco)",
     dark: "var(--color-verde-escuro)",
     border: "var(--color-verde-claro)",
-    disponivel: "var(--color-verde-claro)",
-    emAnalise: "var(--color-laranja)",
+    disponivel: "var(--color-verde-escuro)",
+    emAnalise: "var(--color-laranja-escuro)",
     adotado: "var(--color-cinza-claro)",
   };
 };
@@ -248,7 +248,7 @@ export const PetProfile = () => {
                       className="inline-block px-3 py-1 rounded-full text-sm font-medium"
                       style={{
                         background: status_cor(pet.status, cores),
-                        color: pet.status === "ADOTADO" ? "white" : "var(--color-dark)",
+                        color: "white",
                         whiteSpace: "nowrap",
                       }}
                     >
