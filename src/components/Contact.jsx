@@ -94,8 +94,7 @@ export const Contact = () => {
 
         <button
           type="submit"
-          className="sm:col-span-2 inline-block px-4 py-2 rounded transform transition duration-200 ease-in-out hover:-translate-y-1 hover:scale-105 hover:shadow-md active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2"
-          style={{ backgroundColor: 'var(--color-verde-escuro)', color: 'white' }}
+          className="sm:col-span-2 inline-block px-4 py-2 rounded transform transition duration-200 ease-in-out hover:-translate-y-1 hover:scale-105 hover:shadow-md active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-[var(--color-verde-escuro)] hover:bg-[var(--color-verde-claro)] text-white"
           aria-label="Enviar mensagem"
           disabled={loading}
         >

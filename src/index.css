@@ -2,7 +2,7 @@
 
 @theme {
   --font-sans: 'Inter', sans-serif;
-  --color-verde-escuro: #487F55;
+  --color-verde-escuro: #355F41;
   --color-verde-claro: #AFC78D;
   --color-verde-fraco:#dcfce7;
   --color-azul: #266D99;
@@ -10,7 +10,8 @@
   --color-azul-escuro: #1e3a8a;
   --color-azul-fraco:#dbeafe;
   --color-laranja: #DC824D;
-  --color-cinza-claro: #6B6B6B;
+  --color-laranja-escuro: #9E5700;
+  --color-cinza-claro: #595959;
   --color-dark: #1C1C1C;
   --color-light: #F5F5F5;
   
@@ -34,4 +35,11 @@
 .link-nav:hover::after {
   width: 100%;
 }
+
+/* Ensure custom semantic classes behave reliably across browsers/builds */
+.bg-azul { background-color: var(--color-azul); }
+.bg-laranja { background-color: var(--color-laranja); }
+.bg-azul:hover { background-color: var(--color-laranja) !important; }
+.bg-laranja:hover { background-color: var(--color-azul) !important; }
+
 

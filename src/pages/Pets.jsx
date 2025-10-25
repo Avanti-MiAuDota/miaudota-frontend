@@ -35,8 +35,9 @@ export const Pets = () => {
           <SectionTitle title="Galeria" />
         </div>
           {user?.role === 'ADMIN' &&
-            <Link to="/pets/add" className="inline-block bg-azul text-white hover:bg-laranja px-4 py-2 rounded">
-              Novo Pet
+            <Link to="/pets/add" className="bg-transparent sm:bg-laranja py-2 px-3 text-light font-bold rounded-md sm:hover:bg-azul focus:outline-none focus:ring-2 focus:ring-light focus:ring-opacity-75 transition-transform hover:scale-105 cursor-pointer flex items-center gap-2">
+              <span className="hidden sm:inline">Novo Pet</span>
+              <span className="sm:hidden">Novo</span>
             </Link>
           }
       </div>
