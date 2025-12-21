@@ -1,6 +1,17 @@
-# MiAuDota? - Frontend
+# 🐾 MiAuDota? - Frontend
 
-Este é o frontend do sistema **MiAuDota?**, uma aplicação React para facilitar a adoção de pets, conectando abrigo a adotantes.
+> 🌍 **Language:** [English](./README_en.md) | **Português**
+
+Este é o frontend do sistema **MiAuDota?**, uma aplicação React moderna e intuitiva para facilitar a adoção de pets, conectando abrigos a adotantes de forma eficiente e segura.
+
+## 📋 Sobre o Projeto
+
+MiAuDota? é uma plataforma completa de adoção de pets que visa:
+
+- 🏠 Conectar abrigos e ONGs com potenciais adotantes
+- 🐕 Facilitar o processo de adoção através de um sistema de match
+- 📱 Proporcionar uma experiência responsiva e acessível
+- 💌 Integrar comunicação direta entre abrigos e adotantes
 
 ## Estrutura do Projeto
 
@@ -24,19 +35,19 @@ Este é o frontend do sistema **MiAuDota?**, uma aplicação React para facilita
 └── README.md              # Este arquivo
 ```
 
-## Principais Tecnologias
+## 🚀 Principais Tecnologias
 
-- [React](https://react.dev/) 19
-- [Vite](https://vitejs.dev/) para build e dev server
-- [TailwindCSS](https://tailwindcss.com/) para estilização
-- [React Router DOM](https://reactrouter.com/) para roteamento
-- [Axios](https://axios-http.com/) para requisições HTTP
-- [React Hook Form](https://react-hook-form.com/) para formulários
-- [Zod](https://zod.dev/) para validação
+- **[React](https://react.dev/) 19** - Biblioteca JavaScript para interfaces de usuário
+- **[Vite](https://vitejs.dev/)** - Build tool e dev server ultrarrápido
+- **[TailwindCSS](https://tailwindcss.com/)** - Framework CSS utility-first
+- **[React Router DOM](https://reactrouter.com/)** - Roteamento declarativo
+- **[Axios](https://axios-http.com/)** - Cliente HTTP baseado em Promises
+- **[React Hook Form](https://react-hook-form.com/)** - Gerenciamento performático de formulários
+- **[Zod](https://zod.dev/)** - Validação de schemas TypeScript-first
+- **[EmailJS](https://www.emailjs.com/)** - Envio de emails direto do cliente
+  📦 Scripts Disponíveis
 
-## Scripts Disponíveis
-
-No diretório do projeto, você pode rodar:
+No diretório do projeto, você pode executar:
 
 ### `npm install`
 
@@ -44,6 +55,18 @@ Instala todas as dependências do projeto.
 
 ### `npm run dev`
 
+Inicia o servidor de desenvolvimento. Abra [http://localhost:5173](http://localhost:5173) para visualizar no navegador.
+
+### `npm run build`
+
+Cria a build de produção otimizada na pasta `dist/`.
+
+###🔗 `npm run preview`
+Visualiza a build de produção localmente.
+
+### `npm run lint`
+
+Executa o ESLint para verificar problemas no código
 Roda o app em modo desenvolvimento. Abra [http://localhost:5173](http://localhost:5173) para ver no navegador.
 
 ## Repositórios Relacionados
@@ -51,13 +74,13 @@ Roda o app em modo desenvolvimento. Abra [http://localhost:5173](http://localhos
 - **Backend:** [miaudota-backend](https://github.com/Avanti-MiAuDota/miaudota-backend)
 - **Frontend:** [miaudota-frontend](https://github.com/Avanti-MiAuDota/miaudota-frontend) (este repositório)
 
-## Como Rodar o Projeto
+## 🛠️ Como Rodar o Projeto
 
 ### Pré-requisitos
 
-- Node.js 18+
-- NPM ou Yarn
-- Backend do MiAuDota rodando (veja instruções abaixo)
+- **Node.js** 18 ou superior
+- **NPM** ou **Yarn**
+- **Backend do MiAuDota** rodando (veja instruções abaixo)
 
 ### 1. Configurando o Backend
 
@@ -118,7 +141,7 @@ O backend deve estar rodando em `http://localhost:8080`
 5. **Acesse no navegador:**
    [http://localhost:5173](http://localhost:5173)
 
-## Estrutura de Rotas
+## 🗺️ Estrutura de Rotas
 
 As principais rotas da aplicação são:
 
@@ -137,48 +160,51 @@ As principais rotas da aplicação são:
 - `/401` — Não autorizado
 - `*` — Página não encontrada
 
-### Integração com EmailJS (formulário de contato)
+## 📧 Integração com EmailJS
 
-Esta aplicação usa EmailJS para enviar as mensagens do formulário de contato diretamente para um e-mail configurado no painel do EmailJS. A seguir está um passo-a-passo para configurar e testar localmente.
+Esta aplicação usa **EmailJS** para enviar mensagens do formulário de contato diretamente para um e-mail configurado. Siga o passo a passo abaixo para configurar:
 
-1. Instale a dependência (cliente browser):
+### 1. Instalação da Dependência
 
-```powershell
+```bash
 npm install @emailjs/browser
 ```
 
-2. Variáveis de ambiente (Vite)
-- Crie/edite o arquivo `.env` na raiz do projeto e adicione as variáveis abaixo (substitua pelos valores do seu painel EmailJS):
+### 2. Configuração das Variáveis de Ambiente
 
-```
+Crie/edite o arquivo `.env` na raiz do projeto e adicione:
+env
 VITE_EMAILJS_SERVICE_ID=seu_service_id
 VITE_EMAILJS_TEMPLATE_ID=seu_template_id
 VITE_EMAILJS_PUBLIC_KEY=seu_public_key
+
 ```
-- Observações:
-   - Vite expõe apenas variáveis que começam com `VITE_` para o código cliente.
-   - Reinicie o servidor de desenvolvimento após editar `.env`.
 
-3. Template do EmailJS
-- No painel do EmailJS, crie um template (ou edite o existente). Use as mesmas variáveis que o frontend envia:
-   - `from_name`
-   - `from_email`
-   - `message`
-- No campo "To" do template, coloque o e-mail que deve receber as mensagens.
+> **⚠️ Observações:**
+> - O Vite expõe apenas variáveis que começam com `VITE_`
+> - Reinicie o servidor após editar o `.env`
 
-4. Onde o código está
-- O componente de contato está em `src/components/Contact.jsx`.
-- Ele usa `@emailjs/browser` e espera as env vars acima. 
+### 3. Configuração do Template no EmailJS
 
-5. Fluxo de envio (resumo técnico)
-- O componente valida campos localmente (nome, email, mensagem).
-- Chama `emailjs.init(PUBLIC_KEY)` e `emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams)`.
-- Exibe feedback ao usuário com toasts (sucesso/erro).
+No painel do EmailJS, configure o template com as seguintes variáveis:
+- `from_name`
+- `from_email`
+- `message`
 
-## Equipe de Desenvolvimento
+Configure o e-mail destinatário no campo "To" do template.
+
+### 4. Implementação
+
+O componente de contato está em [src/components/Contact.jsx](src/components/Contact.jsx) e implementa:
+- ✅ Validação local de campos
+- 📤 Envio via `emailjs.send()`
+- 🔔 Feedback visual com toasts
+
+## 👥 Equipe de Desenvolvimento
 
 - [André](https://github.com/Mordev-tech)
 - [Daniel](https://github.com/danielcooder)
 - [Danielle](https://github.com/daniellesena)
 - [Flávia](https://github.com/flaviare1s)
 - [Vittoria](https://github.com/Vittoriaalopes)
+```
