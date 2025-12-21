@@ -178,11 +178,9 @@ VITE_EMAILJS_SERVICE_ID=seu_service_id
 VITE_EMAILJS_TEMPLATE_ID=seu_template_id
 VITE_EMAILJS_PUBLIC_KEY=seu_public_key
 
-```
-
-> **⚠️ Observações:**
-> - O Vite expõe apenas variáveis que começam com `VITE_`
-> - Reinicie o servidor após editar o `.env`
+**⚠️ Observações:**
+- O Vite expõe apenas variáveis que começam com `VITE_`
+- Reinicie o servidor após editar o `.env`
 
 ### 3. Configuração do Template no EmailJS
 
@@ -207,4 +205,3 @@ O componente de contato está em [src/components/Contact.jsx](src/components/Con
 - [Danielle](https://github.com/daniellesena)
 - [Flávia](https://github.com/flaviare1s)
 - [Vittoria](https://github.com/Vittoriaalopes)
-```
